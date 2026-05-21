@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1600" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9FA8B2"/>
+      <stop offset="100%" stop-color="#E5DED2"/>
+    </linearGradient>
+    <linearGradient id="stone3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4E5862"/>
+      <stop offset="100%" stop-color="#373F47"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="1600" fill="url(#bg3)"/>
+  <!-- 墓碑本体（クローズアップ） -->
+  <rect x="350" y="200" width="700" height="1100" rx="6" fill="url(#stone3)"/>
+  <path d="M 350 200 Q 700 100 1050 200 Z" fill="url(#stone3)"/>
+  <!-- 「南無阿弥陀仏」文字スペース（縦書きの示唆） -->
+  <g fill="#E8E2EF" opacity="0.55" font-family="serif" text-anchor="middle">
+    <text x="700" y="380" font-size="120">南</text>
+    <text x="700" y="510" font-size="120">無</text>
+    <text x="700" y="640" font-size="120">阿</text>
+    <text x="700" y="770" font-size="120">彌</text>
+    <text x="700" y="900" font-size="120">陀</text>
+    <text x="700" y="1030" font-size="120">佛</text>
+  </g>
+  <!-- 蓮華の示唆 -->
+  <g fill="#E5DED2" opacity="0.4">
+    <ellipse cx="700" cy="1180" rx="80" ry="28"/>
+    <ellipse cx="700" cy="1180" rx="52" ry="20"/>
+  </g>
+  <!-- 石の質感の微細なノイズ風 -->
+  <g fill="#6B7682" opacity="0.18">
+    <circle cx="500" cy="350" r="2"/>
+    <circle cx="900" cy="500" r="3"/>
+    <circle cx="620" cy="780" r="2"/>
+    <circle cx="850" cy="950" r="2"/>
+    <circle cx="430" cy="1100" r="3"/>
+    <circle cx="980" cy="1180" r="2"/>
+  </g>
+</svg>

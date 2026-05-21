@@ -1,0 +1,130 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import accessMapImg from '@/assets/photos/access-shonan-koen-bochi-map.png';
+import FadeIn from '@/components/FadeIn.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { site } from '@/data/site';
+
+const a = site.gassobo.access;
+---
+<section class="section section-padding">
+  <FadeIn>
+    <SectionHeading
+      eyebrow="Access"
+      title="湘南公園墓地・茅ヶ崎霊園までのアクセス"
+      align="center"
+    />
+  </FadeIn>
+
+  <!-- アクセス地図 -->
+  <FadeIn>
+    <figure class="max-w-4xl mx-auto mb-12 sm:mb-16">
+      <div class="rounded-2xl overflow-hidden border border-line bg-paperWarm">
+        {/*
+          TODO[image]: 「湘南公園墓地までのアクセス地図画像」を
+          src/assets/placeholders/access-shonan-koen-bochi-map.svg と同じ場所に
+          access-shonan-koen-bochi-map.jpg として配置し、importを差し替えてください。
+        */}
+        <Image
+          src={accessMapImg}
+          alt="湘南公園墓地・茅ヶ崎霊園までのアクセス地図"
+          class="w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+      <figcaption class="text-center text-sm text-inkMuted mt-4 leading-relaxed">
+        初めてお越しの方は、こちらの地図をご参照ください。
+      </figcaption>
+    </figure>
+  </FadeIn>
+
+  <!-- アクセス手段の4カード -->
+  <FadeIn>
+    <div class="grid gap-5 sm:gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+      <!-- 電車 -->
+      <article class="card-hover rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+            <Icon name="lucide:train-front" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <h3 class="font-serif text-lg sm:text-xl text-ink">電車でお越しの場合</h3>
+        </div>
+        <ul class="space-y-2 text-inkSoft leading-relaxed text-sm sm:text-base">
+          {a.train.map((t) => (
+            <li>{t.line}「{t.station}」より{t.walk}</li>
+          ))}
+        </ul>
+      </article>
+
+      <!-- バス -->
+      <article class="card-hover rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+            <Icon name="lucide:bus" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <h3 class="font-serif text-lg sm:text-xl text-ink">バスでお越しの場合</h3>
+        </div>
+        <div class="space-y-4 text-inkSoft leading-relaxed text-sm sm:text-base">
+          {a.bus.map((line) => (
+            <p>{line}</p>
+          ))}
+        </div>
+      </article>
+
+      <!-- お車 -->
+      <article class="card-hover rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+            <Icon name="lucide:car" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <h3 class="font-serif text-lg sm:text-xl text-ink">お車でお越しの場合</h3>
+        </div>
+        <p class="text-inkSoft leading-relaxed text-sm sm:text-base mb-6">
+          {a.car}
+        </p>
+        <a
+          href={a.mapUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary"
+          aria-label="Googleマップで湘南公園墓地・茅ヶ崎霊園の場所を見る（新しいタブで開きます）"
+        >
+          <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" />
+          <span>Googleマップで見る</span>
+        </a>
+      </article>
+
+      <!-- 送迎車 -->
+      <article class="card-hover rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+            <Icon name="lucide:bus-front" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <h3 class="font-serif text-lg sm:text-xl text-ink">送迎車について</h3>
+        </div>
+        <p class="text-inkSoft leading-relaxed text-sm sm:text-base mb-6">
+          {a.shuttle.intro}
+        </p>
+        <a
+          href={a.shuttle.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary"
+          aria-label="湘南公園墓地・茅ヶ崎霊園の送迎車案内を確認する（外部サイト・新しいタブで開きます）"
+        >
+          <Icon name="lucide:external-link" class="w-4 h-4" aria-hidden="true" />
+          <span>送迎車のご案内を見る</span>
+        </a>
+      </article>
+    </div>
+  </FadeIn>
+
+  <!-- 補足案内 -->
+  <FadeIn>
+    <p class="text-center text-xs sm:text-sm text-inkMuted mt-10 leading-relaxed max-w-2xl mx-auto">
+      送迎車の時刻表・運休日などは予告なく変更される場合があります。<br class="hidden sm:inline" />
+      最新の情報は、湘南公園墓地・茅ヶ崎霊園の公式サイトをご確認ください。
+    </p>
+  </FadeIn>
+</section>

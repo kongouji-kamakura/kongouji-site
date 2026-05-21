@@ -1,0 +1,12 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/history/Hero.astro';
+import Timeline from '@/components/history/Timeline.astro';
+import { site } from '@/data/site';
+
+const description = `${site.fullName}の歩み。昭和42年の築地本願寺での集いから、神奈川の地での法座会、藤沢市民ホール「音楽の集い」、大船教会を経て現在に至るまでの歩みをご紹介します。`;
+---
+<BaseLayout title="金剛寺の歩み" description={description}>
+  <Hero />
+  <Timeline />
+</BaseLayout>

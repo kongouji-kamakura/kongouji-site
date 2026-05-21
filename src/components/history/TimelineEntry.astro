@@ -1,0 +1,67 @@
+---
+// タイムラインの1エントリ。年代ラベル・小見出し・写真スロット・本文段落・注釈をまとめて表示する。
+// 本文（paragraphs）は呼び出し元から受け取った文字列をそのまま表示すること（改変禁止）。
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import FadeIn from '@/components/FadeIn.astro';
+
+interface Props {
+  era?: string;        // 例：昭和42年1月（年代がない場合は省略可）
+  eraEn?: string;      // 例：Showa 42 · 1967
+  subtitle: string;    // 視覚的なセクション小見出し（本文外）
+  image?: ImageMetadata;
+  caption?: string;
+  paragraphs: string[]; // 各要素を1段落として表示。本文は改変しない
+  note?: string;       // 「※」注釈などの控えめ表示
+}
+
+const { era, eraEn, subtitle, image, caption, paragraphs, note } = Astro.props;
+---
+<article class="mb-20 sm:mb-28">
+  <FadeIn>
+    <header class="mb-8 sm:mb-10">
+      {eraEn && (
+        <p class="text-xs tracking-wider2 uppercase text-gold mb-3">{eraEn}</p>
+      )}
+      {era && (
+        <p class="font-serif text-sm sm:text-base text-inkSoft mb-2">{era}</p>
+      )}
+      <h2 class="font-serif text-2xl sm:text-3xl text-ink leading-snug">{subtitle}</h2>
+    </header>
+  </FadeIn>
+
+  {image && (
+    <FadeIn delay={120}>
+      <figure class="mb-8 sm:mb-10">
+        <div class="rounded-2xl overflow-hidden border border-line bg-paperWarm shadow-sm">
+          <Image
+            src={image}
+            alt={caption ?? ''}
+            class="w-full h-auto"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        {caption && (
+          <figcaption class="text-sm text-inkMuted mt-3 leading-relaxed">
+            {caption}
+          </figcaption>
+        )}
+      </figure>
+    </FadeIn>
+  )}
+
+  <FadeIn delay={image ? 200 : 100}>
+    <div class="max-w-prose space-y-5 sm:space-y-6 text-inkSoft leading-loose text-sm sm:text-base">
+      {paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+  </FadeIn>
+
+  {note && (
+    <FadeIn delay={300}>
+      <p class="mt-7 sm:mt-8 text-xs sm:text-sm text-inkMuted leading-relaxed border-l-2 border-line pl-4 max-w-prose">
+        {note}
+      </p>
+    </FadeIn>
+  )}
+</article>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="washi" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4EFE6"/>
+      <stop offset="100%" stop-color="#E8E2EF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#washi)"/>
+  <!-- 和紙の繊維を思わせる細い横線 -->
+  <g stroke="#D6CFC1" stroke-width="0.6" opacity="0.45">
+    <line x1="0" y1="120" x2="800" y2="124"/>
+    <line x1="0" y1="220" x2="800" y2="222"/>
+    <line x1="0" y1="340" x2="800" y2="338"/>
+    <line x1="0" y1="460" x2="800" y2="464"/>
+    <line x1="0" y1="580" x2="800" y2="576"/>
+    <line x1="0" y1="700" x2="800" y2="704"/>
+    <line x1="0" y1="820" x2="800" y2="818"/>
+    <line x1="0" y1="920" x2="800" y2="924"/>
+  </g>
+  <!-- 中央の控えめな同心円（書院窓のような印象） -->
+  <g fill="none" stroke="#C9A96E" opacity="0.16">
+    <circle cx="400" cy="500" r="100" stroke-width="1"/>
+    <circle cx="400" cy="500" r="150" stroke-width="1"/>
+    <circle cx="400" cy="500" r="200" stroke-width="0.5"/>
+  </g>
+</svg>

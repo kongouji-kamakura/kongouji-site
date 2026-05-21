@@ -1,0 +1,77 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FadeIn from '@/components/FadeIn.astro';
+import CallButton from '@/components/CallButton.astro';
+import MapButton from '@/components/MapButton.astro';
+import BackgroundDecor from '@/components/BackgroundDecor.astro';
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import accessImg from '@/assets/placeholders/access.svg';
+import { site } from '@/data/site';
+---
+<BaseLayout
+  title="アクセス・駐車場"
+  description={`${site.fullName}へのアクセス。${site.access.walkFromOfuna}、${site.access.busFromOfuna}。駐車場は3台ほどございます。複数台でお越しの場合は事前にご相談ください。`}
+>
+  <section class="relative section pt-16 sm:pt-24">
+    <BackgroundDecor variant="access" />
+    <FadeIn>
+      <SectionHeading eyebrow="Access" title="アクセス・駐車場" />
+    </FadeIn>
+
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <FadeIn>
+        <dl class="space-y-7">
+          <div>
+            <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+              <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" /> 所在地
+            </dt>
+            <dd class="text-ink leading-relaxed">〒{site.postal}<br />{site.address}</dd>
+          </div>
+          <div>
+            <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+              <Icon name="lucide:phone" class="w-4 h-4" aria-hidden="true" /> 電話番号
+            </dt>
+            <dd class="text-ink">
+              <a href={`tel:${site.phoneTel}`} class="hover:text-gold">{site.phone}</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+              <Icon name="lucide:footprints" class="w-4 h-4" aria-hidden="true" /> 徒歩でのアクセス
+            </dt>
+            <dd class="text-ink">{site.access.walkFromOfuna}</dd>
+          </div>
+          <div>
+            <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+              <Icon name="lucide:bus" class="w-4 h-4" aria-hidden="true" /> バスでのアクセス
+            </dt>
+            <dd class="text-ink">{site.access.busFromOfuna}</dd>
+          </div>
+          <div>
+            <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+              <Icon name="lucide:car" class="w-4 h-4" aria-hidden="true" /> 駐車場
+            </dt>
+            <dd class="text-ink leading-relaxed">
+              {site.access.parking}
+              {/* TODO[image]: 駐車場の位置がわかる写真・案内図を後から追加 */}
+            </dd>
+          </div>
+        </dl>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <CallButton />
+          <MapButton variant="secondary" />
+        </div>
+      </FadeIn>
+
+      <FadeIn delay={120}>
+        <div class="rounded-2xl overflow-hidden border border-line aspect-[4/3] bg-paperWarm">
+          {/* TODO[image]: 山門・境内入口・周辺地図などの写真に差し替え */}
+          <Image src={accessImg} alt="" role="presentation" class="w-full h-full object-cover" />
+        </div>
+      </FadeIn>
+    </div>
+  </section>
+</BaseLayout>

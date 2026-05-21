@@ -1,0 +1,46 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site, nav } from '@/data/site';
+const year = new Date().getFullYear();
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<footer class="mt-24 border-t border-line bg-paperWarm/40">
+  <div class="section py-14 sm:py-20">
+    <div class="grid gap-10 md:grid-cols-3">
+      <div>
+        <p class="text-xs tracking-wider2 text-gold uppercase mb-2">{site.sect}</p>
+        <p class="font-serif text-xl text-ink mb-4">{site.mountainName} {site.name}</p>
+        <address class="not-italic text-sm text-inkSoft leading-relaxed">
+          〒{site.postal}<br />
+          {site.address}
+        </address>
+        <p class="mt-4 text-sm text-inkSoft flex items-center gap-2">
+          <Icon name="lucide:phone" class="w-4 h-4 text-gold" aria-hidden="true" />
+          <a href={`tel:${site.phoneTel}`} class="hover:text-ink">{site.phone}</a>
+        </p>
+        <p class="mt-2 text-sm text-inkSoft flex items-center gap-2">
+          <Icon name="lucide:printer" class="w-4 h-4 text-gold" aria-hidden="true" />
+          <span>{site.fax}</span>
+        </p>
+      </div>
+
+      <nav class="md:col-span-2" aria-label="フッターナビゲーション">
+        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-6 text-sm text-inkSoft">
+          {nav.map((item) => (
+            <li>
+              <a href={`${baseUrl}${item.href}`} class="hover:text-ink transition-colors">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="divider-soft my-10" />
+
+    <p class="text-xs text-inkMuted text-center">
+      © {year} {site.fullName}
+    </p>
+  </div>
+</footer>

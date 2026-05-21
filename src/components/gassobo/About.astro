@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import shoumenImg from '@/assets/photos/gassobo-shoumen.jpg';
+import FadeIn from '@/components/FadeIn.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import Parallax from '@/components/Parallax.astro';
+import { site } from '@/data/site';
+---
+<section class="relative section section-padding">
+  <FadeIn>
+    <SectionHeading eyebrow="About" title="金剛寺合葬墓について" />
+  </FadeIn>
+
+  <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+    <FadeIn class="lg:col-span-7">
+      <div class="max-w-prose space-y-7 text-inkSoft leading-loose text-sm sm:text-base">
+        {/*
+          TODO[content]: パンフレットの紹介文をもとに整えた文章。
+          最終的な言い回しは金剛寺側でご確認ください。
+        */}
+        <p class="font-serif text-xl sm:text-2xl text-ink leading-relaxed">
+          {site.gassobo.name}は、雄大に聳える富士山を背景に、丹沢・大山の山並みを望む、風光明媚な地にございます。
+        </p>
+        <p>
+          広大な公園墓地のなかに、四季折々の花々と共に静かに佇み、春夏秋冬の移ろいを感じながらお参りいただける場所です。
+        </p>
+        <p>
+          ご遺骨は永代合葬墓に永代合葬し、年間の維持管理費は一切いただいておりません。
+          ご承継者がおられない方も、安心のよりどころとしてお預けいただけます。
+        </p>
+        <p>
+          過去のご宗派は問いません。永代にわたり、毎年 秋の彼岸に合葬墓前にて、浄土真宗本願寺派でお勤めをいたします。
+        </p>
+        <p class="text-sm text-inkMuted pt-2">
+          ※ ご相談・お申し込みは、金剛寺までお電話にてお問い合わせください。
+        </p>
+      </div>
+    </FadeIn>
+
+    <FadeIn delay={120} class="lg:col-span-5">
+      <Parallax speed={0.06}>
+        <figure class="relative">
+          <div class="rounded-2xl overflow-hidden border border-line bg-paperWarm shadow-lg shadow-ink/5 aspect-[4/5]">
+            <Image src={shoumenImg} alt="金剛寺 合葬墓 正面" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <!-- 控えめな金の装飾線 -->
+          <div class="absolute -top-3 -left-3 w-14 h-14 border-t border-l border-gold/40 hidden sm:block" aria-hidden="true"></div>
+          <div class="absolute -bottom-3 -right-3 w-14 h-14 border-b border-r border-gold/40 hidden sm:block" aria-hidden="true"></div>
+        </figure>
+      </Parallax>
+    </FadeIn>
+  </div>
+</section>

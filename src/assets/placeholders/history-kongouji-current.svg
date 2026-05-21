@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="kc1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D9E4EE"/>
+      <stop offset="55%" stop-color="#F4EFE6"/>
+      <stop offset="100%" stop-color="#E5DED2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#kc1)"/>
+  <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#FAF7F2" stroke-width="2" opacity="0.5"/>
+  <!-- 寺院本堂のシルエット（現代） -->
+  <g fill="#7A7470" opacity="0.24">
+    <path d="M 380 720 L 800 460 L 1220 720 L 1220 760 L 380 760 Z"/>
+    <rect x="460" y="760" width="680" height="280"/>
+    <rect x="600" y="840" width="120" height="200"/>
+    <rect x="780" y="840" width="120" height="200"/>
+    <rect x="960" y="840" width="40" height="200"/>
+  </g>
+  <!-- 軒の影 -->
+  <rect x="380" y="720" width="840" height="40" fill="#5A5550" opacity="0.18"/>
+</svg>

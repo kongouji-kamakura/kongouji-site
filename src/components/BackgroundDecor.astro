@@ -1,0 +1,48 @@
+---
+// セクション背景に控えめなピクトグラム装飾を散らすコンポーネント。
+// テキストの可読性を妨げないよう低彩度・低不透明度で配置。
+// バリアントごとに使用アイコンを切り替える。
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  variant: 'access' | 'contact' | 'houji-sogi';
+  class?: string;
+}
+
+const { variant, class: className = '' } = Astro.props;
+
+// バリアントごとの装飾アイコン配置（位置・サイズ・回転）。
+// 文字の通りやすい余白部分に少しずつ散らす。
+const decorMap = {
+  access: [
+    { icon: 'lucide:map', class: 'top-12 -left-6 w-32 h-32 rotate-[-12deg]' },
+    { icon: 'lucide:car', class: 'top-1/3 -right-8 w-28 h-28 rotate-[8deg]' },
+    { icon: 'lucide:map-pin', class: 'bottom-24 left-1/4 w-20 h-20 rotate-[6deg]' },
+    { icon: 'lucide:milestone', class: 'bottom-8 -right-4 w-24 h-24 rotate-[-4deg]' },
+  ],
+  contact: [
+    { icon: 'lucide:phone', class: 'top-16 -left-6 w-28 h-28 rotate-[-10deg]' },
+    { icon: 'lucide:printer', class: 'top-1/2 -right-6 w-28 h-28 rotate-[8deg]' },
+    { icon: 'lucide:mail', class: 'bottom-20 left-1/4 w-20 h-20 rotate-[-6deg]' },
+    { icon: 'lucide:message-circle', class: 'bottom-8 -right-4 w-24 h-24 rotate-[4deg]' },
+  ],
+  'houji-sogi': [
+    { icon: 'lucide:calendar', class: 'top-12 -left-6 w-28 h-28 rotate-[-8deg]' },
+    { icon: 'lucide:home', class: 'top-1/3 -right-6 w-28 h-28 rotate-[6deg]' },
+    { icon: 'lucide:map-pin', class: 'bottom-24 left-1/4 w-20 h-20 rotate-[-4deg]' },
+    { icon: 'lucide:circle', class: 'bottom-12 -right-4 w-32 h-32 rotate-[2deg]' },
+  ],
+};
+
+const items = decorMap[variant] ?? [];
+---
+<div
+  class:list={['absolute inset-0 pointer-events-none overflow-hidden -z-10', className]}
+  aria-hidden="true"
+>
+  {items.map((item) => (
+    <span class:list={['absolute text-fuji/[0.06] sm:text-fuji/[0.08]', item.class]}>
+      <Icon name={item.icon} class="w-full h-full" stroke-width={1} />
+    </span>
+  ))}
+</div>

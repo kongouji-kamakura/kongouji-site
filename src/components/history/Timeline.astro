@@ -1,0 +1,146 @@
+---
+// 金剛寺の歩みタイムライン本体。
+// 本文（paragraphs / note）の文字列は一切変更しないこと。
+// 言い換え・要約・誤字修正・加筆を行わない。段落分割（段落6 → D/E）はレイアウト調整の範囲内。
+import TimelineEntry from './TimelineEntry.astro';
+import FadeIn from '@/components/FadeIn.astro';
+
+import imgHouwakaiStart from '@/assets/photos/history-houwakai-start-bw.jpg';
+import imgOngakuTsudoi from '@/assets/photos/history-ongaku-tsudoi.jpg';
+import imgShigaBunin from '@/assets/photos/history-shiga-kongouji-bunin.jpg';
+import imgOfunaKyokai from '@/assets/photos/history-ofuna-kyokai.jpg';
+import imgHouwakai700 from '@/assets/photos/history-houwakai-700.jpg';
+import imgKongoujiCurrent from '@/assets/photos/history-kongouji-current.jpg';
+
+// 本文（参照元：ユーザー提供の原文）— このまま掲載すること。
+// TODO[image]: 写真ファイルが用意でき次第、各 image を実画像（.jpg / .webp）に差し替え。
+const entries = [
+  {
+    era: '昭和42年1月',
+    eraEn: 'Showa 42 · 1967',
+    subtitle: '始まりの集い',
+    image: undefined,
+    caption: undefined,
+    paragraphs: [
+      '金剛寺の歩みは、昭和42年1月、築地本願寺において、ふるさとを離れて首都圏に暮らす門信徒の方々が集われたことに始まります。',
+      '当時、故郷を離れて東京近郊で生活する門信徒の方々にとって、浄土真宗のみ教えを聞き、同じご縁に生きる人々と出遇う場は、大切な心のよりどころでもありました。 そのような中で、在京の門信徒による聞法と交流の集まりとして「東京親鸞会」が発足し、法話会や集いを通して、首都圏における聞法のご縁が育まれていきました。',
+    ],
+    note: '※ここでいう「東京親鸞会」は、築地本願寺に関係する当時の聞法・交流団体を指し、現在活動している同名または類似名称の団体とは異なります。',
+  },
+  {
+    era: '昭和44年9月',
+    eraEn: 'Showa 44 · 1969',
+    subtitle: '神奈川支部 第1回法座会',
+    image: imgHouwakaiStart,
+    caption: '始まりの法話会の記録',
+    paragraphs: [
+      'その後、昭和44年9月には、東京親鸞会神奈川支部として第1回法座会が開催されました。 これが、神奈川の地における金剛寺の聞法活動の大切な始まりとなりました。以来、門信徒の方々が集い、仏法を聴聞する場として、法座会の歩みが重ねられていきました。',
+    ],
+  },
+  {
+    era: '昭和49年',
+    eraEn: 'Showa 49 · 1974',
+    subtitle: '藤沢市民ホール「音楽の集い」',
+    image: imgOngakuTsudoi,
+    caption: '藤沢市民ホール「音楽の集い」',
+    paragraphs: [
+      '昭和49年には、藤沢市民ホールにおいて「音楽の集い」が開催されました。 この集いは、仏教讃歌や合唱を通して、み教えとのご縁を深める機会となりました。また、このご縁は、のちに築地別院合唱団「楽友会」へとつながる基ともなりました。',
+    ],
+  },
+  {
+    era: '昭和59年4月',
+    eraEn: 'Showa 59 · 1984',
+    subtitle: '滋賀 金剛寺の分院へ',
+    image: imgShigaBunin,
+    caption: '滋賀の金剛寺分院に関する資料',
+    paragraphs: [
+      'やがて昭和59年4月には、滋賀の金剛寺の分院となり、聞法の場としての歩みをさらに深めていきました。',
+    ],
+  },
+  {
+    era: '平成8年12月',
+    eraEn: 'Heisei 8 · 1996',
+    subtitle: '大船教会としての歩み',
+    image: imgOfunaKyokai,
+    caption: '大船教会時代を偲ばせる資料',
+    paragraphs: [
+      'その後、平成8年12月には、非宗教法人「大船教会」として歩みを進め、地域に根ざした念仏の道場として、その基盤を整えてまいりました。',
+    ],
+  },
+  {
+    era: '平成13年3月',
+    eraEn: 'Heisei 13 · 2001',
+    subtitle: '大船山 金剛寺へ',
+    image: undefined,
+    caption: undefined,
+    paragraphs: [
+      'そして平成13年3月、鎌倉組「大船山 金剛寺」として寺号をいただき、現在の金剛寺へと至りました。',
+    ],
+  },
+] as const;
+
+const reflection =
+  '金剛寺は、はじめから大きな寺院として形づくられたわけではありません。 ふるさとを離れた門信徒の方々の聞法の願い、法座会を支えてくださった方々のご尽力、そして念仏のみ教えを大切に受け継ごうとする歩みの中で、少しずつ現在の姿へと導かれてまいりました。';
+
+const entriesAfter = [
+  {
+    era: '令和7年1月11日',
+    eraEn: 'Reiwa 7 · 2025',
+    subtitle: '法話会 700回',
+    image: imgHouwakai700,
+    caption: '法話会700回記念',
+    paragraphs: [
+      '令和7年1月11日には、法話会が700回目を迎えました。 長年にわたり聞法のご縁が絶えることなく続けられてきたことは、金剛寺にとって大変大きな歩みであり、多くの方々に支えられてきた証でもあります。',
+    ],
+  },
+  {
+    era: undefined,
+    eraEn: 'Today',
+    subtitle: 'これから',
+    image: imgKongoujiCurrent,
+    caption: '現在の金剛寺',
+    paragraphs: [
+      'これまでの歩みに感謝しつつ、金剛寺はこれからも、浄土真宗のみ教えを聞きひらく場として、またご門徒の皆さま、地域の皆さまとともに歩む寺院として、念仏のご縁を大切にしてまいります。',
+    ],
+  },
+] as const;
+---
+<section class="section section-padding">
+  <div class="max-w-3xl mx-auto">
+    {entries.map((e) => (
+      <TimelineEntry
+        era={e.era}
+        eraEn={e.eraEn}
+        subtitle={e.subtitle}
+        image={e.image}
+        caption={e.caption}
+        paragraphs={[...e.paragraphs]}
+        note={'note' in e ? (e as { note?: string }).note : undefined}
+      />
+    ))}
+
+    {/* 省察の段落（年代なし・中央寄せ・控えめ表示） */}
+    <FadeIn>
+      <div class="my-12 sm:my-16">
+        <div class="max-w-prose mx-auto px-2 sm:px-4 text-center">
+          <div class="divider-soft mb-8 sm:mb-10" />
+          <p class="font-serif text-base sm:text-lg text-inkSoft leading-loose">
+            {reflection}
+          </p>
+          <div class="divider-soft mt-8 sm:mt-10" />
+        </div>
+      </div>
+    </FadeIn>
+
+    {entriesAfter.map((e) => (
+      <TimelineEntry
+        era={e.era}
+        eraEn={e.eraEn}
+        subtitle={e.subtitle}
+        image={e.image}
+        caption={e.caption}
+        paragraphs={[...e.paragraphs]}
+      />
+    ))}
+  </div>
+</section>

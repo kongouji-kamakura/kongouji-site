@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D9E4EE"/>
+      <stop offset="100%" stop-color="#F4EFE6"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6B7682"/>
+      <stop offset="100%" stop-color="#4E5862"/>
+    </linearGradient>
+    <linearGradient id="base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D8D2C7"/>
+      <stop offset="100%" stop-color="#BDB6A8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#sky2)"/>
+  <!-- 地面 -->
+  <rect x="0" y="780" width="1600" height="420" fill="url(#base)"/>
+  <!-- 左右の手すり/外柵 -->
+  <g fill="#C8C2B5">
+    <rect x="100" y="700" width="500" height="80"/>
+    <rect x="1000" y="700" width="500" height="80"/>
+    <rect x="100" y="780" width="500" height="20" fill="#A8A294"/>
+    <rect x="1000" y="780" width="500" height="20" fill="#A8A294"/>
+  </g>
+  <!-- 中央の合葬墓 -->
+  <g>
+    <rect x="660" y="380" width="280" height="400" rx="4" fill="url(#stone)"/>
+    <path d="M 660 380 Q 800 320 940 380 Z" fill="url(#stone)"/>
+    <rect x="620" y="780" width="360" height="80" fill="#5C6A78"/>
+    <rect x="580" y="860" width="440" height="40" fill="#7A8694"/>
+  </g>
+  <!-- 蓮華（簡略） -->
+  <g fill="#E5DED2" opacity="0.7">
+    <ellipse cx="800" cy="680" rx="40" ry="14"/>
+    <ellipse cx="800" cy="680" rx="26" ry="10"/>
+  </g>
+  <!-- 文字スペースの陰影 -->
+  <rect x="760" y="430" width="80" height="220" fill="#FAFBFC" opacity="0.12"/>
+</svg>

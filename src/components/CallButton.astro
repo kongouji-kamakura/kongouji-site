@@ -1,0 +1,21 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+
+interface Props {
+  variant?: 'primary' | 'secondary';
+  label?: string;
+  class?: string;
+}
+const { variant = 'primary', label, class: className = '' } = Astro.props;
+const cls = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+const text = label ?? `お電話 ${site.phone}`;
+---
+<a
+  href={`tel:${site.phoneTel}`}
+  class:list={[cls, className]}
+  aria-label={`金剛寺に電話する ${site.phone}`}
+>
+  <Icon name="lucide:phone" class="w-4 h-4" aria-hidden="true" />
+  <span>{text}</span>
+</a>

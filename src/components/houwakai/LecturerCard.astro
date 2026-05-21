@@ -1,0 +1,54 @@
+---
+// 法話会ご講師の1名分のカード。
+// 写真未設定の場合は和風プレースホルダー（lecturer-placeholder.svg）を表示し、
+// 写真の有無にかかわらず同一の見た目を保つ。
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import placeholderImg from '@/assets/placeholders/lecturer-placeholder.svg';
+
+interface Props {
+  monthLabel: string;
+  temple?: string;
+  name: string;
+  honorific: string;
+  intro: string[];
+  image?: ImageMetadata;
+}
+
+const { monthLabel, temple, name, honorific, intro, image } = Astro.props;
+const photo = image ?? placeholderImg;
+const isPlaceholder = !image;
+const displayName = [temple, `${name} ${honorific}`].filter(Boolean).join(' ');
+---
+<article class="card-hover rounded-2xl border border-line bg-paper overflow-hidden flex flex-col h-full">
+  <!-- 写真エリア（写真の有無にかかわらず同一の高さを確保） -->
+  <div class="relative aspect-[4/5] bg-paperWarm overflow-hidden">
+    {/* TODO[image]: ご本人の掲載許可をいただいた写真に差し替え（推奨 800×1000 / 縦長） */}
+    <Image
+      src={photo}
+      alt={isPlaceholder ? '' : displayName}
+      role={isPlaceholder ? 'presentation' : undefined}
+      class="w-full h-full object-cover"
+      loading="lazy"
+      decoding="async"
+    />
+    <!-- 月バッジ -->
+    <span class="absolute top-3 left-3 inline-flex items-center justify-center bg-paper/95 backdrop-blur px-3 py-1 rounded-full text-xs font-serif text-ink border border-line shadow-sm">
+      {monthLabel}
+    </span>
+  </div>
+
+  <!-- テキストエリア -->
+  <div class="p-5 sm:p-6 flex-1 flex flex-col">
+    {temple && (
+      <p class="text-xs tracking-wider2 uppercase text-gold mb-2">{temple}</p>
+    )}
+    <h3 class="font-serif text-lg sm:text-xl text-ink leading-snug">
+      {name}<span class="text-sm text-inkSoft ml-2">{honorific}</span>
+    </h3>
+    <div class="divider-soft my-4" />
+    <div class="text-sm text-inkSoft leading-relaxed space-y-3 flex-1">
+      {intro.map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+</article>

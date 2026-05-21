@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+
+interface Props {
+  variant?: 'primary' | 'secondary';
+  label?: string;
+  class?: string;
+}
+const { variant = 'secondary', label = 'Googleマップで見る', class: className = '' } = Astro.props;
+const cls = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+---
+<a
+  href={site.mapUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[cls, className]}
+  aria-label="Googleマップで金剛寺の場所を見る（新しいタブで開きます）"
+>
+  <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" />
+  <span>{label}</span>
+</a>

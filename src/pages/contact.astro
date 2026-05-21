@@ -1,0 +1,64 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FadeIn from '@/components/FadeIn.astro';
+import CallButton from '@/components/CallButton.astro';
+import MapButton from '@/components/MapButton.astro';
+import BackgroundDecor from '@/components/BackgroundDecor.astro';
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+---
+<BaseLayout
+  title="お問い合わせ"
+  description={`${site.fullName}へのお問い合わせは、お電話にて承っております。`}
+>
+  <section class="relative section pt-16 sm:pt-24">
+    <BackgroundDecor variant="contact" />
+    <FadeIn>
+      <SectionHeading eyebrow="Contact" title="お問い合わせ" />
+    </FadeIn>
+
+    <div class="max-w-2xl">
+      <FadeIn>
+        <p class="text-inkSoft leading-loose mb-8">
+          金剛寺では、お問い合わせフォームは設けておりません。<br />
+          お電話にて承っておりますので、お手数をおかけしますが下記までご連絡ください。
+        </p>
+      </FadeIn>
+
+      <FadeIn delay={80}>
+        <div class="rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-10">
+          <dl class="space-y-6">
+            <div>
+              <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+                <Icon name="lucide:phone" class="w-4 h-4" aria-hidden="true" /> お電話
+              </dt>
+              <dd class="font-serif text-2xl sm:text-3xl text-ink">
+                <a href={`tel:${site.phoneTel}`} class="hover:text-gold">{site.phone}</a>
+              </dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+                <Icon name="lucide:printer" class="w-4 h-4" aria-hidden="true" /> FAX
+              </dt>
+              <dd class="font-serif text-xl sm:text-2xl text-ink">{site.fax}</dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
+                <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" /> 所在地
+              </dt>
+              <dd class="text-ink leading-relaxed">〒{site.postal}<br />{site.address}</dd>
+            </div>
+          </dl>
+          <p class="text-sm text-inkMuted mt-8 leading-relaxed">
+            ※ お越しの際は、行き違いを避けるため、事前にお電話いただけますと幸いです。
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <CallButton />
+            <MapButton />
+          </div>
+        </div>
+      </FadeIn>
+    </div>
+  </section>
+</BaseLayout>

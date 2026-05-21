@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FadeIn from '@/components/FadeIn.astro';
+import AboutHeroSlideshow from '@/components/AboutHeroSlideshow.astro';
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<BaseLayout
+  title="金剛寺について"
+  description={`${site.fullName}についてのご紹介。神奈川県鎌倉市玉縄にある浄土真宗本願寺派の寺院です。`}
+>
+  <!-- 四季の境内スライドショー + タイトル -->
+  <AboutHeroSlideshow />
+
+  <!-- 本文 -->
+  <section class="section section-padding">
+    <FadeIn>
+      <div class="max-w-prose mx-auto text-inkSoft leading-loose space-y-6 text-sm sm:text-base text-center">
+        {/* TODO[content]: 寺院の由緒・歴史・住職挨拶などを金剛寺側で確定後に差し替え */}
+        <p>
+          毎月第二土曜日には法話会を行い、ご門徒様だけでなく、はじめての方にもお参りいただけるよう、開かれたお寺でありたいと願っております。
+        </p>
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- 金剛寺の歩みへの導線カード（より目立つビジュアル型） -->
+  <section class="section">
+    <FadeIn>
+      <a
+        href={`${base}/history/`}
+        class="group block relative overflow-hidden rounded-3xl border border-line bg-gradient-to-br from-fujiSoft/30 via-paper to-goldSoft/30 card-hover"
+      >
+        <div class="px-6 py-12 sm:px-12 sm:py-16 text-center">
+          <p class="text-xs tracking-wider2 uppercase text-gold mb-3">History · Showa 42 — Today</p>
+          <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl text-ink mb-5">
+            金剛寺の歩み
+          </h2>
+          <p class="text-inkSoft leading-relaxed text-sm sm:text-base max-w-xl mx-auto mb-7">
+            昭和42年の築地本願寺での集いから、現在の大船山 金剛寺に至るまでの歩みをご紹介します。
+          </p>
+          <span class="inline-flex items-center gap-2 text-sm text-gold opacity-90 group-hover:opacity-100 transition-opacity">
+            <span>歩みを見る</span>
+            <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+          </span>
+        </div>
+      </a>
+    </FadeIn>
+  </section>
+
+  <!-- 寺院情報 -->
+  <section class="section section-padding">
+    <FadeIn>
+      <dl class="grid sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto border-t border-line pt-10">
+        <div>
+          <dt class="text-xs tracking-wider2 uppercase text-gold mb-2">宗派</dt>
+          <dd class="font-serif text-lg text-ink">{site.sect}</dd>
+        </div>
+        <div>
+          <dt class="text-xs tracking-wider2 uppercase text-gold mb-2">寺名</dt>
+          <dd class="font-serif text-lg text-ink">{site.mountainName} {site.name}</dd>
+        </div>
+        <div>
+          <dt class="text-xs tracking-wider2 uppercase text-gold mb-2">所在地</dt>
+          <dd class="text-ink">〒{site.postal}<br />{site.address}</dd>
+        </div>
+        <div>
+          <dt class="text-xs tracking-wider2 uppercase text-gold mb-2">電話番号</dt>
+          <dd class="text-ink">
+            <a href={`tel:${site.phoneTel}`} class="hover:text-gold">{site.phone}</a>
+          </dd>
+        </div>
+      </dl>
+    </FadeIn>
+  </section>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+// 一時お骨預かりのご案内（合葬墓ページ内の関連カード）。
+// 独立ページ化はせず、本カードに集約 → 詳細は電話導線へ。
+import { Icon } from 'astro-icon/components';
+import FadeIn from '@/components/FadeIn.astro';
+import CallButton from '@/components/CallButton.astro';
+import { site } from '@/data/site';
+---
+<section class="section section-padding">
+  <FadeIn>
+    <div class="max-w-3xl mx-auto rounded-2xl border border-line bg-paper p-6 sm:p-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+          <Icon name="lucide:archive" class="w-5 h-5" aria-hidden="true" />
+        </span>
+        <p class="text-xs tracking-wider2 uppercase text-gold">Related</p>
+      </div>
+
+      <h3 class="font-serif text-xl sm:text-2xl text-ink mb-4">
+        一時お骨預かりについて
+      </h3>
+
+      <p class="text-inkSoft leading-loose text-sm sm:text-base mb-3">
+        一時お預かりをご希望の方は、金剛寺にて {site.okotsuAzukari.yearly} でお預かりいたします。
+      </p>
+      <p class="text-inkSoft leading-loose text-sm sm:text-base">
+        詳しくは金剛寺までお電話にてお問い合わせください。
+      </p>
+
+      <div class="mt-7">
+        <CallButton />
+      </div>
+    </div>
+  </FadeIn>
+</section>

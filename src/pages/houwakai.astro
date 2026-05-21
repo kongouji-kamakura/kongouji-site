@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FadeIn from '@/components/FadeIn.astro';
+import CallButton from '@/components/CallButton.astro';
+import Lecturers from '@/components/houwakai/Lecturers.astro';
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+---
+<BaseLayout
+  title="法話会のご案内"
+  description={`${site.fullName}の法話会は、${site.houwakai.schedule}行っております。毎月、各地よりご講師をお招きし、浄土真宗のみ教えをお聞かせいただいております。はじめての方もどうぞお参りください。`}
+>
+  <section class="section pt-16 sm:pt-24">
+    <FadeIn>
+      <SectionHeading eyebrow="Dharma Talk" title="法話会のご案内" />
+    </FadeIn>
+
+    <!-- 開催日時のハイライト -->
+    <FadeIn>
+      <div class="rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-10 mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+            <Icon name="lucide:calendar" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <p class="text-xs tracking-wider2 uppercase text-gold">Schedule</p>
+        </div>
+        <p class="font-serif text-2xl sm:text-3xl text-ink">
+          {site.houwakai.schedule}
+        </p>
+      </div>
+    </FadeIn>
+
+    <!-- 法話会の紹介文（4段落） + 右側に写真 -->
+    <FadeIn>
+      <div class="max-w-2xl mx-auto text-center space-y-5 sm:space-y-6 text-inkSoft leading-loose text-sm sm:text-base">
+        <p>
+          金剛寺では、毎月第二土曜日の午後1時30分より、法話会を行っております。
+        </p>
+        <p>
+          法話会では、各地よりご講師をお招きし、浄土真宗のみ教えをお聞かせいただいております。
+        </p>
+        <p>
+          ご講師それぞれの歩みやご縁を通して語られるお話は、日々の暮らしの中で、仏さまのみ教えに耳を傾ける大切な時間となっています。
+        </p>
+        <p>
+          はじめての方も、どうぞお気軽にお参りください。
+        </p>
+      </div>
+      <div class="mt-10 flex justify-center">
+        <CallButton label={`お問い合わせ ${site.phone}`} />
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- ご講師のご紹介 -->
+  <Lecturers />
+</BaseLayout>

@@ -1,0 +1,54 @@
+---
+import { Icon } from 'astro-icon/components';
+import FadeIn from '@/components/FadeIn.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import LecturerCard from './LecturerCard.astro';
+import { lecturers } from '@/data/lecturers';
+---
+<section class="section section-padding">
+  <FadeIn>
+    <SectionHeading eyebrow="Lecturers" title="ご講師のご紹介" align="center" />
+  </FadeIn>
+
+  <!-- ご講師紹介欄の導入文 -->
+  <FadeIn>
+    <div class="max-w-2xl mx-auto text-inkSoft leading-loose space-y-5 mb-10 sm:mb-12 text-center text-sm sm:text-base">
+      <p>
+        金剛寺の法話会には、各地で浄土真宗のみ教えをお伝えになっているご講師の先生方にお越しいただいております。
+      </p>
+      <p>
+        それぞれのご縁、歩み、地域でのご活動を通して語られるご法話を、月に一度、皆さまとともにお聞かせいただいております。
+      </p>
+    </div>
+  </FadeIn>
+
+  <!-- 「予定は変更となる場合がございます」の丁寧な注意書き -->
+  <FadeIn>
+    <div class="max-w-3xl mx-auto rounded-2xl border border-line/80 bg-goldSoft/30 px-6 py-5 sm:px-8 sm:py-6 mb-12 sm:mb-16">
+      <div class="flex items-start gap-3">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-paper text-gold shrink-0 mt-0.5">
+          <Icon name="lucide:info" class="w-4 h-4" aria-hidden="true" />
+        </span>
+        <p class="text-inkSoft leading-relaxed text-sm">
+          掲載しているご講師は、現在の予定に基づくものです。都合により変更となる場合がございますので、あらかじめご了承ください。
+        </p>
+      </div>
+    </div>
+  </FadeIn>
+
+  <!-- ご講師カード一覧 -->
+  <FadeIn>
+    <div class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {lecturers.map((l) => (
+        <LecturerCard
+          monthLabel={l.monthLabel}
+          temple={l.temple}
+          name={l.name}
+          honorific={l.honorific}
+          intro={[...l.intro]}
+          image={l.image}
+        />
+      ))}
+    </div>
+  </FadeIn>
+</section>

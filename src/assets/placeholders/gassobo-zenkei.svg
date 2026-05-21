@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1200" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D9E4EE"/>
+      <stop offset="60%" stop-color="#EAEFF4"/>
+      <stop offset="100%" stop-color="#F4EFE6"/>
+    </linearGradient>
+    <linearGradient id="mountain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FAFBFC"/>
+      <stop offset="100%" stop-color="#C7CFD8"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E5DED2"/>
+      <stop offset="100%" stop-color="#D6CFC1"/>
+    </linearGradient>
+  </defs>
+  <rect width="2000" height="1200" fill="url(#sky)"/>
+  <!-- 遠景の山（富士山を想起）-->
+  <path d="M 600 720 L 950 380 L 1100 380 L 1450 720 Z" fill="url(#mountain)" opacity="0.85"/>
+  <!-- 山の雪のライン -->
+  <path d="M 880 450 L 950 380 L 1100 380 L 1170 450 L 1130 460 L 1080 430 L 1000 440 L 950 420 L 920 440 Z" fill="#FAFBFC" opacity="0.9"/>
+  <!-- 地平線 -->
+  <rect x="0" y="720" width="2000" height="480" fill="url(#ground)"/>
+  <!-- 墓碑のシルエット（中央） -->
+  <g opacity="0.85">
+    <rect x="1180" y="800" width="180" height="280" rx="6" fill="#5C6A78"/>
+    <path d="M 1180 800 Q 1270 760 1360 800 Z" fill="#5C6A78"/>
+    <rect x="1140" y="1060" width="260" height="60" fill="#7A8694"/>
+  </g>
+  <!-- 周辺の墓石（控えめに） -->
+  <g opacity="0.4" fill="#8A8A8A">
+    <rect x="200" y="880" width="60" height="120"/>
+    <rect x="320" y="860" width="60" height="140"/>
+    <rect x="450" y="880" width="60" height="120"/>
+    <rect x="1620" y="870" width="60" height="130"/>
+    <rect x="1740" y="880" width="60" height="120"/>
+  </g>
+</svg>

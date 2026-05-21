@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/gassobo/Hero.astro';
+import About from '@/components/gassobo/About.astro';
+import Namuamida from '@/components/gassobo/Namuamida.astro';
+import Features from '@/components/gassobo/Features.astro';
+import Konshi from '@/components/gassobo/Konshi.astro';
+import OkotsuRelatedCard from '@/components/gassobo/OkotsuRelatedCard.astro';
+import Access from '@/components/gassobo/Access.astro';
+import Location from '@/components/gassobo/Location.astro';
+import { site } from '@/data/site';
+
+const description = `${site.gassobo.name}（${site.gassobo.aka}）は、${site.gassobo.location.facility}にある金剛寺の合葬墓です。年間維持管理費は不要、ご承継者のおられない方も安心してお預けいただけます。`;
+---
+<BaseLayout title="金剛寺 合葬墓のご案内" description={description}>
+  <Hero />
+  <About />
+  <Namuamida />
+  <Features />
+  <Konshi />
+  <OkotsuRelatedCard />
+  <Access />
+  <Location />
+</BaseLayout>

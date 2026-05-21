@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="sg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8E2EF"/>
+      <stop offset="100%" stop-color="#EDE3CC"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#sg1)"/>
+  <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#FAF7F2" stroke-width="2" opacity="0.5"/>
+  <!-- 寺院の屋根のシルエット -->
+  <g fill="#7A7470" opacity="0.22">
+    <path d="M 400 700 L 800 480 L 1200 700 L 1200 740 L 400 740 Z"/>
+    <rect x="500" y="740" width="600" height="240"/>
+  </g>
+  <!-- 遠景の山 -->
+  <path d="M 0 620 L 320 460 L 540 580 L 800 420 L 1080 560 L 1320 480 L 1600 600 L 1600 740 L 0 740 Z" fill="#9FA8B2" opacity="0.18"/>
+</svg>

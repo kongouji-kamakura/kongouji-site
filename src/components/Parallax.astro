@@ -1,0 +1,42 @@
+---
+interface Props {
+  speed?: number;
+  class?: string;
+}
+const { speed = 0.12, class: className = '' } = Astro.props;
+---
+<div class:list={['parallax', className]} data-parallax-speed={speed}>
+  <slot />
+</div>
+
+<script>
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const isMobile = window.matchMedia('(max-width: 767px)');
+  if (!mq.matches && !isMobile.matches) {
+    const items = Array.from(
+      document.querySelectorAll<HTMLElement>('.parallax')
+    );
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight;
+      for (const el of items) {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > vh) continue;
+        const speed = Number(el.dataset.parallaxSpeed ?? 0.12);
+        const center = rect.top + rect.height / 2 - vh / 2;
+        const offset = Math.max(-20, Math.min(20, -center * speed * 0.08));
+        el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+      }
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>

@@ -1,0 +1,29 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+const { href, title, description, icon } = Astro.props;
+---
+<a
+  href={href}
+  class="card-hover group block rounded-2xl border border-line bg-paper p-6 sm:p-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuji focus-visible:ring-offset-2"
+>
+  <div class="flex items-center gap-3 mb-4">
+    <span
+      class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft transition-colors duration-300 group-hover:bg-goldSoft"
+    >
+      <Icon name={icon} class="w-5 h-5" aria-hidden="true" />
+    </span>
+    <h3 class="text-lg sm:text-xl font-serif text-ink">{title}</h3>
+  </div>
+  <p class="text-sm sm:text-base text-inkSoft leading-relaxed">{description}</p>
+  <div class="mt-5 flex items-center gap-1 text-sm text-gold opacity-80 group-hover:opacity-100 transition-opacity">
+    <span>詳しく見る</span>
+    <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+  </div>
+</a>

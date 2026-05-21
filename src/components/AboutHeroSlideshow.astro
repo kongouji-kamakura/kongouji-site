@@ -1,0 +1,95 @@
+---
+// 金剛寺について 用のヒーロースライドショー。
+// 境内の四季を伝える6枚をゆっくりクロスフェード。
+// prefers-reduced-motion 設定時は1枚目を静止表示。
+import { Image } from 'astro:assets';
+import img01 from '@/assets/photos/about-hero-01.jpg';
+import img02 from '@/assets/photos/about-hero-02.jpg';
+import img03 from '@/assets/photos/about-hero-03.jpg';
+import img04 from '@/assets/photos/about-hero-04.jpg';
+import img05 from '@/assets/photos/about-hero-05.jpg';
+import img06 from '@/assets/photos/about-hero-06.jpg';
+
+const photos = [
+  { src: img01, alt: '金剛寺 境内 ― 飛び石の小径' },
+  { src: img02, alt: '金剛寺 境内 ― 夏の花と飛び石' },
+  { src: img03, alt: '金剛寺 境内 ― 秋を告げる紫の花' },
+  { src: img04, alt: '金剛寺 境内 ― 実りの季節' },
+  { src: img05, alt: '金剛寺 境内 ― 彼岸花' },
+  { src: img06, alt: '金剛寺 境内 ― 玄関の小路' },
+];
+const total = photos.length;
+const eachDuration = 7; // 1枚あたりの表示秒数
+const totalDuration = total * eachDuration; // ループ全体の秒数
+---
+<section class="relative overflow-hidden bg-ink/5">
+  <div
+    class="relative h-[68vh] min-h-[460px] sm:h-[78vh] sm:min-h-[600px] w-full overflow-hidden about-slideshow"
+    style={`--total: ${totalDuration}s; --count: ${total};`}
+    aria-label="金剛寺 境内の四季"
+  >
+    {photos.map((p, i) => (
+      <div
+        class="absolute inset-0 about-slide"
+        style={`animation-delay: ${i * eachDuration}s;`}
+      >
+        <Image
+          src={p.src}
+          alt={p.alt}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    ))}
+    <!-- 上下に控えめなグラデーション -->
+    <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper/20 to-transparent pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-paper via-paper/40 to-transparent pointer-events-none" aria-hidden="true"></div>
+  </div>
+
+  <!-- タイトル：ヒーロー下部から本文へ自然につながる -->
+  <div class="section relative">
+    <div class="-mt-32 sm:-mt-40 max-w-3xl mx-auto text-center fade-in relative z-10">
+      <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl text-ink leading-snug">
+        金剛寺について
+      </h1>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* スライドショーアニメーション。
+     各 .about-slide が animation-delay 違いで同じキーフレームを再生する。
+     1スライドあたり全体の (1/総数 + クロスフェード幅)% だけ表示される。 */
+  .about-slide {
+    opacity: 0;
+    animation: aboutSlide var(--total) ease-in-out infinite;
+    will-change: opacity;
+  }
+
+  /* 6枚の場合：1スライドは全体の 1/6 (= 約16.67%) を担当。
+     クロスフェードを2%ずつ重ねるため、表示期間は16%、フェード前後に2%ずつ */
+  @keyframes aboutSlide {
+    0%   { opacity: 0; }
+    2%   { opacity: 1; }
+    14.66% { opacity: 1; }
+    16.66% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* 1枚目だけは初期表示で見える状態にしておく */
+  .about-slide:first-child {
+    opacity: 1;
+  }
+
+  /* prefers-reduced-motion 対応：アニメーションを止め1枚目だけ表示 */
+  @media (prefers-reduced-motion: reduce) {
+    .about-slide {
+      animation: none !important;
+      opacity: 0;
+    }
+    .about-slide:first-child {
+      opacity: 1;
+    }
+  }
+</style>

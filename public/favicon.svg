@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#FAF7F2"/>
+  <circle cx="32" cy="32" r="20" fill="none" stroke="#C9A96E" stroke-width="2"/>
+  <text x="32" y="40" text-anchor="middle" font-family="serif" font-size="26" fill="#2A2A2A">金</text>
+</svg>

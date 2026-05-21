@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="og1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0E6D6"/>
+      <stop offset="100%" stop-color="#E0D2BC"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#og1)"/>
+  <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#FAF7F2" stroke-width="2" opacity="0.5"/>
+  <!-- ホール・座席の示唆 -->
+  <g fill="#B8AEC9" opacity="0.22">
+    <rect x="280" y="780" width="1040" height="14" rx="4"/>
+    <rect x="320" y="830" width="960" height="14" rx="4"/>
+    <rect x="360" y="880" width="880" height="14" rx="4"/>
+    <rect x="400" y="930" width="800" height="14" rx="4"/>
+  </g>
+  <!-- 舞台 -->
+  <rect x="540" y="500" width="520" height="220" fill="#C9A96E" opacity="0.18"/>
+</svg>

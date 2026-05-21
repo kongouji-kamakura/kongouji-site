@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans;
+    font-feature-settings: "palt";
+    line-height: 1.85;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif text-ink;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  ::selection {
+    background: #E8E2EF;
+    color: #2A2A2A;
+  }
+}
+
+@layer components {
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+    will-change: opacity, transform;
+  }
+  .fade-in.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-image {
+    opacity: 0;
+    transform: scale(1.04);
+    animation: heroFadeZoom 1.2s var(--ease-soft) forwards,
+               heroSlowZoom 18s ease-out 1.2s forwards;
+  }
+
+  @keyframes heroFadeZoom {
+    to { opacity: 1; }
+  }
+  @keyframes heroSlowZoom {
+    to { transform: scale(1.0); }
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+  .card-hover:hover {
+    @apply -translate-y-0.5 shadow-md;
+  }
+
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium tracking-wide transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuji;
+  }
+  .btn-primary {
+    @apply btn-base bg-ink text-paper hover:bg-inkSoft;
+  }
+  .btn-secondary {
+    @apply btn-base bg-paper text-ink border border-line hover:border-gold hover:bg-goldSoft/40;
+  }
+
+  .section {
+    @apply px-5 sm:px-8 max-w-6xl mx-auto;
+  }
+
+  .section-padding {
+    @apply py-16 sm:py-24;
+  }
+
+  .divider-soft {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #E5DED2, transparent);
+  }
+}
+
+/* Parallax wrapper hint */
+.parallax {
+  will-change: transform;
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-image {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .parallax {
+    transform: none !important;
+  }
+}

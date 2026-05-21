@@ -1,0 +1,80 @@
+---
+import { Icon } from 'astro-icon/components';
+import FadeIn from '@/components/FadeIn.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CallButton from '@/components/CallButton.astro';
+import { site } from '@/data/site';
+---
+<!-- 納骨法要の注意書き -->
+<section class="section pt-4">
+  <FadeIn>
+    <div class="max-w-3xl mx-auto rounded-2xl border border-line/80 bg-goldSoft/30 px-6 py-6 sm:px-8 sm:py-7">
+      <div class="flex items-start gap-3">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-paper text-gold shrink-0 mt-0.5">
+          <Icon name="lucide:info" class="w-4 h-4" aria-hidden="true" />
+        </span>
+        <p class="text-inkSoft leading-relaxed text-sm sm:text-base">
+          納骨時の納骨法要につきましては、別途お申込み・お手続きをお願いいたします。
+          詳しくは金剛寺までお問い合わせください。
+        </p>
+      </div>
+    </div>
+  </FadeIn>
+</section>
+
+<!-- 所在地・お問い合わせ -->
+<section class="section section-padding">
+  <FadeIn>
+    <SectionHeading eyebrow="Location & Contact" title="所在地・お問い合わせ" align="center" />
+  </FadeIn>
+
+  <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto">
+    <!-- 合葬墓所在地 -->
+    <FadeIn>
+      <div class="rounded-2xl border border-line bg-paper p-6 sm:p-8 h-full">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+            <Icon name="lucide:map-pin" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <h3 class="font-serif text-lg sm:text-xl text-ink">合葬墓所在地</h3>
+        </div>
+        <p class="text-ink leading-relaxed mb-2">
+          {site.gassobo.location.facility}
+        </p>
+        <address class="not-italic text-inkSoft text-sm leading-relaxed">
+          〒{site.gassobo.location.postal}<br />
+          {site.gassobo.location.address}
+        </address>
+        <p class="text-xs text-inkMuted mt-5 leading-relaxed">
+          詳しい行き方は、上の「湘南公園墓地・茅ヶ崎霊園までのアクセス」をご覧ください。
+        </p>
+      </div>
+    </FadeIn>
+
+    <!-- お問い合わせ（金剛寺） -->
+    <FadeIn delay={120}>
+      <div class="rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-8 h-full">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+            <Icon name="lucide:phone" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <h3 class="font-serif text-lg sm:text-xl text-ink">お問い合わせ</h3>
+        </div>
+
+        <p class="text-xs tracking-wider2 uppercase text-gold mb-2">{site.sect}</p>
+        <p class="font-serif text-lg text-ink mb-3">{site.mountainName} {site.name}</p>
+        <address class="not-italic text-inkSoft text-sm leading-relaxed mb-5">
+          〒{site.postal}<br />
+          {site.address}
+        </address>
+        <p class="font-serif text-2xl text-ink mb-5">
+          <a href={`tel:${site.phoneTel}`} class="hover:text-gold">{site.phone}</a>
+        </p>
+        <CallButton />
+        <p class="text-xs text-inkMuted mt-5 leading-relaxed">
+          合葬墓に関するご相談・お申し込みは、金剛寺までお願いいたします。
+        </p>
+      </div>
+    </FadeIn>
+  </div>
+</section>

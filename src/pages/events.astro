@@ -1,0 +1,184 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FadeIn from '@/components/FadeIn.astro';
+import CallButton from '@/components/CallButton.astro';
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+
+// 年間行事一覧。
+// 浄土真宗本願寺派の作法に沿った表現のみ。
+// 「霊を慰める」「供養して成仏させる」「祈祷」「厄除け」「ご利益」等は使用しない。
+interface AnnualEvent {
+  date: string;
+  name: string;
+  icon: string;
+  paragraphs: string[];
+}
+
+const events: AnnualEvent[] = [
+  {
+    date: '1月1日',
+    name: '元旦会',
+    icon: 'lucide:sunrise',
+    paragraphs: [
+      '新しい年のはじめにあたり、仏さまのご縁の中で日々を歩ませていただく思いを新たにする法要です。',
+    ],
+  },
+  {
+    date: '1月',
+    name: '修正会',
+    icon: 'lucide:book-open',
+    paragraphs: [
+      '一年のはじめに、あらためて浄土真宗のみ教えを聞かせていただくご縁です。',
+    ],
+  },
+  {
+    date: '3月',
+    name: '春彼岸',
+    icon: 'lucide:flower',
+    paragraphs: [
+      '春のお彼岸にあたり、亡き方をご縁として、仏さまのみ教えを聞かせていただく法要です。',
+    ],
+  },
+  {
+    date: '4月',
+    name: '花まつり',
+    icon: 'lucide:flower-2',
+    paragraphs: [
+      'お釈迦さまのご誕生をご縁として、仏さまのみ教えに親しむ行事です。',
+    ],
+  },
+  {
+    date: '5月',
+    name: '永代経',
+    icon: 'lucide:scroll-text',
+    paragraphs: [
+      '亡き方をご縁として、浄土真宗のみ教えがこれからも受け継がれていくことを願い、お勤めする法要です。',
+    ],
+  },
+  {
+    date: '7月・8月',
+    name: 'お盆',
+    icon: 'lucide:flame',
+    paragraphs: [
+      '亡き方をご縁として、いのちのつながりをたずね、仏さまのみ教えを聞かせていただく季節の法要です。',
+    ],
+  },
+  {
+    date: '9月',
+    name: '秋彼岸・永代経',
+    icon: 'lucide:leaf',
+    paragraphs: [
+      '秋のお彼岸にあたり、あらためて仏法を聞かせていただくご縁です。',
+      'あわせて永代経をお勤めいたします。',
+    ],
+  },
+  {
+    date: '12月',
+    name: '報恩講',
+    icon: 'lucide:book-marked',
+    paragraphs: [
+      '親鸞聖人のご遺徳を偲び、浄土真宗のみ教えを聞かせていただく、浄土真宗において大切な法要です。',
+    ],
+  },
+];
+---
+<BaseLayout
+  title="年間行事"
+  description={`${site.fullName}の年間行事のご案内。元旦会、修正会、春秋のお彼岸、永代経、お盆、報恩講など、季節ごとのご縁を大切にお勤めしております。`}
+>
+  <!-- Hero -->
+  <section class="section pt-16 sm:pt-24 pb-8 sm:pb-12 text-center">
+    <FadeIn>
+      <p class="text-xs sm:text-sm tracking-wider2 uppercase text-gold mb-5">
+        Annual Events
+      </p>
+    </FadeIn>
+    <FadeIn delay={120}>
+      <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl text-ink leading-snug">
+        年間行事
+      </h1>
+    </FadeIn>
+    <FadeIn delay={220}>
+      <div class="mt-10 sm:mt-14 max-w-xs mx-auto">
+        <div class="divider-soft" />
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- Intro -->
+  <section class="section pb-8">
+    <FadeIn>
+      <div class="max-w-2xl mx-auto text-inkSoft leading-loose space-y-5 text-sm sm:text-base">
+        <p>
+          金剛寺では、年間を通して、浄土真宗のみ教えを聞かせていただくご縁として、各種法要・行事をお勤めしております。
+        </p>
+        <p>
+          元旦会は1月1日に、その他の主な行事は各月の第二土曜日を中心にお勤めしております。
+        </p>
+        <p>
+          春秋のお彼岸、永代経、報恩講をはじめ、季節ごとのご縁を大切にしながら、皆さまとともにお参りの時間を重ねてまいります。
+        </p>
+        <p class="text-sm text-inkMuted">
+          行事の日程・内容は年により変更となる場合がございます。詳しくは金剛寺までお問い合わせください。
+        </p>
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- Events Timeline -->
+  <section class="section section-padding">
+    <div class="max-w-3xl mx-auto relative">
+      <!-- 縦のタイムラインライン -->
+      <div
+        class="absolute left-3 sm:left-4 top-3 bottom-3 w-px bg-line"
+        aria-hidden="true"
+      />
+
+      {events.map((event) => (
+        <FadeIn>
+          <article class="relative pl-10 sm:pl-14 mb-12 sm:mb-14 last:mb-0">
+            <!-- タイムラインのドット -->
+            <span
+              class="absolute left-1.5 sm:left-2.5 top-3 w-3 h-3 rounded-full bg-fuji border-2 border-paper shadow-sm"
+              aria-hidden="true"
+            />
+
+            <header class="flex items-center gap-2.5 mb-3">
+              <Icon name={event.icon} class="w-4 h-4 text-gold" aria-hidden="true" />
+              <p class="text-xs sm:text-sm tracking-wider2 uppercase text-gold">
+                {event.date}
+              </p>
+            </header>
+            <h2 class="font-serif text-xl sm:text-2xl text-ink mb-3 leading-snug">
+              {event.name}
+            </h2>
+            <div class="text-inkSoft leading-loose text-sm sm:text-base space-y-2">
+              {event.paragraphs.map((p) => <p>{p}</p>)}
+            </div>
+          </article>
+        </FadeIn>
+      ))}
+    </div>
+  </section>
+
+  <!-- Notice + Contact -->
+  <section class="section pb-16 sm:pb-24">
+    <FadeIn>
+      <div class="max-w-3xl mx-auto rounded-2xl border border-line/80 bg-goldSoft/30 px-6 py-6 sm:px-8 sm:py-8">
+        <div class="flex items-start gap-3 mb-6">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-paper text-gold shrink-0 mt-0.5">
+            <Icon name="lucide:info" class="w-4 h-4" aria-hidden="true" />
+          </span>
+          <p class="text-inkSoft leading-relaxed text-sm">
+            ※行事の日程・内容は年により変更となる場合がございます。<br />
+            お参りを希望される方は、事前に金剛寺までお問い合わせください。
+          </p>
+        </div>
+        <div class="pt-5 border-t border-line">
+          <CallButton />
+        </div>
+      </div>
+    </FadeIn>
+  </section>
+</BaseLayout>

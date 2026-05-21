@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="bw1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A8A8A8"/>
+      <stop offset="100%" stop-color="#6E6E6E"/>
+    </linearGradient>
+    <radialGradient id="bwv1" cx="50%" cy="50%" r="70%">
+      <stop offset="60%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.18"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bw1)"/>
+  <rect width="1600" height="1200" fill="url(#bwv1)"/>
+  <!-- 古い写真風の内側フレーム -->
+  <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#E5E5E5" stroke-width="2" opacity="0.4"/>
+  <!-- 粒状ノイズの示唆 -->
+  <g fill="#FFFFFF" opacity="0.06">
+    <circle cx="280" cy="420" r="2"/>
+    <circle cx="660" cy="320" r="3"/>
+    <circle cx="1180" cy="540" r="2"/>
+    <circle cx="940" cy="780" r="2"/>
+    <circle cx="380" cy="880" r="3"/>
+    <circle cx="1280" cy="940" r="2"/>
+  </g>
+</svg>

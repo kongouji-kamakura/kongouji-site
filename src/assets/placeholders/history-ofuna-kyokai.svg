@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="ok1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4EFE6"/>
+      <stop offset="100%" stop-color="#E5DED2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#ok1)"/>
+  <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#FAF7F2" stroke-width="2" opacity="0.5"/>
+  <!-- シンプルな建物のシルエット -->
+  <g fill="#7A7470" opacity="0.2">
+    <rect x="540" y="500" width="520" height="380"/>
+    <path d="M 500 500 L 800 380 L 1100 500 Z"/>
+    <rect x="650" y="640" width="80" height="160"/>
+    <rect x="870" y="640" width="80" height="160"/>
+    <rect x="760" y="700" width="80" height="180"/>
+  </g>
+</svg>

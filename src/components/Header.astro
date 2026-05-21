@@ -1,0 +1,95 @@
+---
+import { Icon } from 'astro-icon/components';
+import { nav, site } from '@/data/site';
+
+const currentPath = Astro.url.pathname;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isActive = (href: string) => {
+  const full = `${baseUrl}${href}`.replace(/\/$/, '');
+  const current = currentPath.replace(/\/$/, '');
+  return current === full;
+};
+---
+<header class="sticky top-0 z-40 bg-paper/85 backdrop-blur-md border-b border-line/70">
+  <div class="section flex items-center justify-between h-16 sm:h-20">
+    <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 group">
+      <span class="font-serif text-base sm:text-lg text-ink leading-none">
+        <span class="block text-[10px] sm:text-xs tracking-wider2 text-gold uppercase mb-1">
+          {site.sect}
+        </span>
+        {site.mountainName} {site.name}
+      </span>
+    </a>
+
+    <nav class="hidden lg:block" aria-label="サイト内ナビゲーション">
+      <ul class="flex items-center gap-4 xl:gap-6 text-xs xl:text-sm text-inkSoft">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={`${baseUrl}${item.href}`}
+              class:list={[
+                'hover:text-ink transition-colors',
+                isActive(item.href) && 'text-ink font-medium',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button
+      type="button"
+      class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-fujiSoft/60 transition-colors"
+      aria-label="メニューを開く"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      data-menu-toggle
+    >
+      <Icon name="lucide:menu" class="w-5 h-5" aria-hidden="true" data-icon-menu />
+      <Icon name="lucide:x" class="w-5 h-5 hidden" aria-hidden="true" data-icon-close />
+    </button>
+  </div>
+
+  <div
+    id="mobile-nav"
+    class="lg:hidden hidden border-t border-line bg-paper"
+    data-menu-panel
+  >
+    <nav aria-label="モバイルナビゲーション" class="section py-4">
+      <ul class="flex flex-col">
+        {nav.map((item) => (
+          <li class="border-b border-line last:border-0">
+            <a
+              href={`${baseUrl}${item.href}`}
+              class:list={[
+                'block py-3 text-base text-inkSoft hover:text-ink transition-colors',
+                isActive(item.href) && 'text-ink font-medium',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-menu-panel]');
+  const iconMenu = document.querySelector<SVGElement>('[data-icon-menu]');
+  const iconClose = document.querySelector<SVGElement>('[data-icon-close]');
+  if (toggle && panel) {
+    toggle.addEventListener('click', () => {
+      const open = !panel.classList.contains('hidden');
+      panel.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', !open ? 'メニューを閉じる' : 'メニューを開く');
+      iconMenu?.classList.toggle('hidden', !open);
+      iconClose?.classList.toggle('hidden', open);
+    });
+  }
+</script>

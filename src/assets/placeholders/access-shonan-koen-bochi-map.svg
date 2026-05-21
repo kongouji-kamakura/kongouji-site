@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <defs>
+    <linearGradient id="mapbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4EFE6"/>
+      <stop offset="100%" stop-color="#EDE3CC"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="1000" fill="url(#mapbg)"/>
+
+  <!-- 道路（薄いピンク） -->
+  <g stroke="#E8A8B8" stroke-width="14" fill="none" stroke-linecap="round" opacity="0.55">
+    <path d="M 80 200 Q 400 220 700 250 T 1320 300"/>
+    <path d="M 200 80 L 240 950"/>
+    <path d="M 80 700 Q 500 720 900 700 T 1320 660"/>
+  </g>
+
+  <!-- 川（青） -->
+  <g stroke="#A8C5E8" stroke-width="22" fill="none" opacity="0.55">
+    <path d="M 540 60 Q 580 400 620 700 T 660 950"/>
+  </g>
+
+  <!-- JR線（黒の点線） -->
+  <g stroke="#4A4540" stroke-width="3" stroke-dasharray="10 6" fill="none" opacity="0.5">
+    <path d="M 700 80 L 720 600 Q 730 850 760 950"/>
+  </g>
+
+  <!-- 駅マーク（小さなピンク四角） -->
+  <g fill="#E8A8B8" opacity="0.85">
+    <rect x="690" y="260" width="40" height="40" rx="4"/>
+    <rect x="710" y="640" width="40" height="40" rx="4"/>
+  </g>
+
+  <!-- 目的地マーカー（赤） -->
+  <g>
+    <circle cx="950" cy="340" r="46" fill="#C04040" opacity="0.92"/>
+    <circle cx="950" cy="340" r="22" fill="#FAF7F2"/>
+    <text x="950" y="430" text-anchor="middle" font-family="'Noto Serif JP', serif" font-size="22" fill="#4A4540" font-weight="700">湘南公園墓地</text>
+    <text x="950" y="458" text-anchor="middle" font-family="'Noto Serif JP', serif" font-size="22" fill="#4A4540" font-weight="700">茅ヶ崎霊園</text>
+  </g>
+
+  <!-- placeholder note -->
+  <text x="700" y="940" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="18" fill="#7A7470" opacity="0.7">アクセス地図プレースホルダー（後で本物の地図画像に差し替え）</text>
+</svg>

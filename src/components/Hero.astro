@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '@/assets/placeholders/hero.svg';
+import { site } from '@/data/site';
+import CallButton from './CallButton.astro';
+---
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    {/* TODO[image]: 本堂や境内の正式な写真に差し替え（推奨 1920x1200, WebP） */}
+    <Image
+      src={heroImg}
+      alt=""
+      role="presentation"
+      class="hero-image w-full h-full object-cover"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-paper/30 via-paper/40 to-paper"></div>
+  </div>
+
+  <div class="section pt-24 pb-28 sm:pt-36 sm:pb-40 md:pt-44 md:pb-48 text-center">
+    <p class="fade-in text-xs sm:text-sm tracking-wider2 uppercase text-gold mb-5">
+      {site.sect}
+    </p>
+    <h1 class="fade-in font-serif text-3xl sm:text-5xl md:text-6xl text-ink leading-snug">
+      {site.mountainName}
+      <span class="inline-block mx-2 sm:mx-3 text-gold">·</span>
+      {site.name}
+    </h1>
+    {/* TODO[content]: トップヒーローの一文を金剛寺側で確定後に差し替え */}
+    <p class="fade-in mt-6 sm:mt-8 max-w-xl mx-auto text-sm sm:text-base text-inkSoft leading-relaxed">
+      神奈川県鎌倉市玉縄に佇む、浄土真宗本願寺派の小さなお寺です。<br class="hidden sm:inline" />
+      どうぞ、心静かなひとときをお過ごしください。
+    </p>
+    <div class="fade-in mt-10 flex flex-wrap items-center justify-center gap-3">
+      <CallButton />
+      <a
+        href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/houwakai/`}
+        class="btn-secondary"
+      >
+        法話会のご案内
+      </a>
+    </div>
+  </div>
+</section>

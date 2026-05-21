@@ -1,0 +1,60 @@
+---
+import { Icon } from 'astro-icon/components';
+import FadeIn from '@/components/FadeIn.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+
+const features = [
+  {
+    icon: 'lucide:circle-check',
+    title: '年間維持管理費は一切不要',
+    body: '将来にわたって、ご家族にご負担が残らないよう配慮しております。',
+  },
+  {
+    icon: 'lucide:hand-helping',
+    title: '承継者のおられない方も安心',
+    body: 'お一人の方も、ご承継者のいらっしゃらない方も、お預けいただけます。',
+  },
+  {
+    icon: 'lucide:users',
+    title: '過去の宗派は問いません',
+    body: 'これまでのご宗旨に関わらず、ご縁のあった方をお迎えいたします。',
+  },
+  {
+    icon: 'lucide:leaf',
+    title: '秋の彼岸に合葬墓前で法要',
+    body: '毎年 秋の彼岸に、合葬墓前にて法要をお勤めいたします。',
+  },
+  {
+    icon: 'lucide:book-open',
+    title: '浄土真宗本願寺派でお勤め',
+    body: '永代にわたり、浄土真宗本願寺派の作法でご法要をお勤めいたします。',
+  },
+];
+---
+<section class="relative section section-padding">
+  <FadeIn>
+    <SectionHeading eyebrow="Features" title="金剛寺合葬墓の特徴" align="center" />
+  </FadeIn>
+
+  <FadeIn>
+    <!-- 5項目を上品に並べる：上 3 / 下 2 のアシンメトリ配置で「カタログ感」を抑える -->
+    <ul class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-6 max-w-5xl mx-auto">
+      {features.map((f, i) => (
+        <li class:list={[
+          'card-hover rounded-2xl border border-line bg-paper p-6 sm:p-7',
+          'lg:col-span-2',
+          // 最後の2つを中央揃えに（lg breakpoint）
+          i === 3 && 'lg:col-start-2',
+        ]}>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-fujiSoft text-inkSoft">
+              <Icon name={f.icon} class="w-5 h-5" aria-hidden="true" />
+            </span>
+            <h3 class="font-serif text-base sm:text-lg text-ink leading-snug">{f.title}</h3>
+          </div>
+          <p class="text-sm text-inkSoft leading-relaxed">{f.body}</p>
+        </li>
+      ))}
+    </ul>
+  </FadeIn>
+</section>

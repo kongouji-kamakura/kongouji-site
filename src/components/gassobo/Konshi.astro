@@ -1,0 +1,51 @@
+---
+import { Icon } from 'astro-icon/components';
+import FadeIn from '@/components/FadeIn.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CallButton from '@/components/CallButton.astro';
+import { site } from '@/data/site';
+---
+<section class="relative section section-padding">
+  <FadeIn>
+    <SectionHeading eyebrow="Donation" title="ご懇志について" align="center" />
+  </FadeIn>
+
+  <FadeIn>
+    <!-- 「料金表」ではなく「ご懇志のご案内」として上品に -->
+    <div class="max-w-3xl mx-auto">
+      <div class="rounded-3xl border border-line bg-gradient-to-b from-paperWarm/30 to-paper px-6 py-14 sm:px-14 sm:py-16 text-center relative overflow-hidden">
+        <!-- 控えめな金の細い装飾線（四隅） -->
+        <div class="absolute top-6 left-6 w-10 h-10 border-t border-l border-gold/40 hidden sm:block" aria-hidden="true"></div>
+        <div class="absolute top-6 right-6 w-10 h-10 border-t border-r border-gold/40 hidden sm:block" aria-hidden="true"></div>
+        <div class="absolute bottom-6 left-6 w-10 h-10 border-b border-l border-gold/40 hidden sm:block" aria-hidden="true"></div>
+        <div class="absolute bottom-6 right-6 w-10 h-10 border-b border-r border-gold/40 hidden sm:block" aria-hidden="true"></div>
+
+        <div class="relative">
+          <!-- 永代合葬懇志 -->
+          <div class="mb-10 sm:mb-12">
+            <p class="text-xs tracking-wider2 uppercase text-gold mb-3">永代合葬懇志</p>
+            <p class="font-serif text-4xl sm:text-5xl md:text-6xl text-ink leading-tight">
+              {site.gassobo.konshi.eternal}
+            </p>
+          </div>
+
+          <div class="divider-soft max-w-xs mx-auto mb-10 sm:mb-12" />
+
+          <!-- 年間維持管理費 -->
+          <div class="mb-12">
+            <p class="text-xs tracking-wider2 uppercase text-gold mb-3">年間維持管理費</p>
+            <p class="font-serif text-2xl sm:text-3xl text-ink leading-tight">
+              {site.gassobo.konshi.yearly}
+            </p>
+          </div>
+
+          <p class="text-xs sm:text-sm text-inkMuted leading-relaxed max-w-md mx-auto mb-8">
+            ※ ご懇志の詳細・お申し込みの流れにつきましては、金剛寺までお電話にてお問い合わせください。
+          </p>
+
+          <CallButton />
+        </div>
+      </div>
+    </div>
+  </FadeIn>
+</section>
