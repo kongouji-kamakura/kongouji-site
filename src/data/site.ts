@@ -1,6 +1,6 @@
 // 寺院の確定情報を集約する単一ソース。
 // 文言・連絡先・アクセス情報を変更する際は、まずこのファイルを更新する。
-// TODO[deploy]: siteUrl / mapUrl は実際の公開URLが決まり次第差し替え。
+// siteUrl は設定済み（GitHub Pages 公開URL）。mapUrl は正式なGoogleマップ共有リンクに差し替え予定（下記 TODO[link]）。
 
 export const site = {
   sect: '浄土真宗本願寺派',
@@ -22,7 +22,11 @@ export const site = {
 
   access: {
     walkFromOfuna: '大船駅より徒歩約16分',
-    busFromOfuna: '清泉女子大学行きバスにて約7分',
+    busFromOfuna:
+      '大船駅西口3番のりばより、船35系統「清泉女学院行き」にて「栄光学園前」下車（約5分）',
+    // バスの乗り口（大船駅西口）・降り口（栄光学園前）のGoogleマップ位置（利用者確認済みの共有リンク）
+    busBoardingMapUrl: 'https://maps.app.goo.gl/g5h4PjyoWYUcwChV9',
+    busAlightingMapUrl: 'https://maps.app.goo.gl/E28MePiyoJLjEU6e6',
     parking:
       '駐車場は3台ほどございます。複数台でお越しの場合や、それ以上のお車でお越しになる場合は、事前に金剛寺までご相談ください。',
   },

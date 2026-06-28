@@ -21,11 +21,6 @@ const a = site.gassobo.access;
   <FadeIn>
     <figure class="max-w-4xl mx-auto mb-12 sm:mb-16">
       <div class="rounded-2xl overflow-hidden border border-line bg-paperWarm">
-        {/*
-          TODO[image]: 「湘南公園墓地までのアクセス地図画像」を
-          src/assets/placeholders/access-shonan-koen-bochi-map.svg と同じ場所に
-          access-shonan-koen-bochi-map.jpg として配置し、importを差し替えてください。
-        */}
         <Image
           src={accessMapImg}
           alt="湘南公園墓地・茅ヶ崎霊園までのアクセス地図"
@@ -36,6 +31,18 @@ const a = site.gassobo.access;
       <figcaption class="text-center text-sm text-inkMuted mt-4 leading-relaxed">
         初めてお越しの方は、こちらの地図をご参照ください。
       </figcaption>
+      <div class="text-center mt-5">
+        <a
+          href={a.mapUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary"
+          aria-label="Googleマップで湘南公園墓地・茅ヶ崎霊園の場所を開く（新しいタブで開きます）"
+        >
+          <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" />
+          <span>Googleマップで開く</span>
+        </a>
+      </div>
     </figure>
   </FadeIn>
 

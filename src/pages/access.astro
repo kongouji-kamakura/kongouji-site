@@ -47,7 +47,34 @@ import { site } from '@/data/site';
             <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">
               <Icon name="lucide:bus" class="w-4 h-4" aria-hidden="true" /> バスでのアクセス
             </dt>
-            <dd class="text-ink">{site.access.busFromOfuna}</dd>
+            <dd class="text-ink leading-relaxed">
+              {site.access.busFromOfuna}
+              <span class="block text-sm text-inkMuted mt-1">
+                ※ 行き先表示が「船35」のバスにご乗車ください。
+              </span>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <a
+                  href={site.access.busBoardingMapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-secondary"
+                  aria-label="バスの乗り口（大船駅西口 3番のりば）をGoogleマップで見る（新しいタブで開きます）"
+                >
+                  <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" />
+                  <span>乗り口（大船駅西口）</span>
+                </a>
+                <a
+                  href={site.access.busAlightingMapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-secondary"
+                  aria-label="バスの降り口（栄光学園前バス停）をGoogleマップで見る（新しいタブで開きます）"
+                >
+                  <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" />
+                  <span>降り口（栄光学園前）</span>
+                </a>
+              </div>
+            </dd>
           </div>
           <div>
             <dt class="text-xs tracking-wider2 uppercase text-gold mb-2 flex items-center gap-2">

@@ -36,10 +36,10 @@ import { lecturers } from '@/data/lecturers';
     </div>
   </FadeIn>
 
-  <!-- ご講師カード一覧 -->
-  <FadeIn>
-    <div class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {lecturers.map((l) => (
+  <!-- ご講師カード一覧（カードごとにFadeInで包む：縦長でも確実に表示されるよう個別判定にする） -->
+  <div class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {lecturers.map((l, i) => (
+      <FadeIn class="h-full" delay={(i % 3) * 80}>
         <LecturerCard
           monthLabel={l.monthLabel}
           temple={l.temple}
@@ -48,7 +48,7 @@ import { lecturers } from '@/data/lecturers';
           intro={[...l.intro]}
           image={l.image}
         />
-      ))}
-    </div>
-  </FadeIn>
+      </FadeIn>
+    ))}
+  </div>
 </section>
