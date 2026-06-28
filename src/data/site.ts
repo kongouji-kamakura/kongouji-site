@@ -15,6 +15,11 @@ export const site = {
   phoneTel: '+81467453284',
   fax: '0467-45-7613',
 
+  // 法要受付フォーム（Googleフォーム）・LINE公式アカウント友だち追加
+  formUrl:
+    'https://docs.google.com/forms/d/1bZx-SgHJ2lV392MJyYdDc5woMcfTau1yQQutSg4XcIY/viewform',
+  lineUrl: 'https://lin.ee/xPpDogL',
+
   access: {
     walkFromOfuna: '大船駅より徒歩約16分',
     busFromOfuna: '清泉女子大学行きバスにて約7分',

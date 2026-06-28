@@ -1,0 +1,232 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FadeIn from '@/components/FadeIn.astro';
+import BackgroundDecor from '@/components/BackgroundDecor.astro';
+import FormButton from '@/components/FormButton.astro';
+import LineButton from '@/components/LineButton.astro';
+import CallButton from '@/components/CallButton.astro';
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+import { nenkiList } from '@/data/nenki';
+
+const months = Array.from({ length: 12 }, (_, i) => i + 1);
+const days = Array.from({ length: 31 }, (_, i) => i + 1);
+const fieldCls =
+  'rounded-lg border border-line bg-paper px-3 py-2 text-ink focus:outline-none focus:ring-2 focus:ring-fuji';
+---
+<BaseLayout
+  title="年忌のご案内"
+  description={`${site.fullName}の年忌のご案内。亡くなられた年から、何年が何回忌にあたるかの目安をご覧いただけます。年忌法要のお申し込み・ご相談も承っております。`}
+>
+  <section class="relative section pt-16 sm:pt-24 pb-16 sm:pb-24">
+    <BackgroundDecor variant="houji-sogi" />
+    <FadeIn>
+      <SectionHeading eyebrow="Memorial" title="年忌のご案内" />
+    </FadeIn>
+
+    <div class="max-w-2xl">
+      <FadeIn>
+        <p class="text-inkSoft leading-loose mb-8">
+          亡くなられた年を入れていただくと、何年が何回忌にあたるかの目安をご覧いただけます。<br />
+          月日が分かる場合は入れていただくと、より詳しい日付の目安が表示されます。
+        </p>
+      </FadeIn>
+
+      <FadeIn delay={80}>
+        <div class="rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-10">
+          <form id="nenki-form" class="space-y-5">
+            <div>
+              <label for="nenki-year" class="block text-xs tracking-wider2 uppercase text-gold mb-2">
+                亡くなられた年（必須）
+              </label>
+              <div class="flex flex-wrap items-center gap-2">
+                <select id="nenki-era" aria-label="元号" class={fieldCls}>
+                  <option value="seireki">西暦</option>
+                  <option value="reiwa">令和</option>
+                  <option value="heisei">平成</option>
+                  <option value="showa">昭和</option>
+                  <option value="taisho">大正</option>
+                </select>
+                <input
+                  id="nenki-year"
+                  type="number"
+                  inputmode="numeric"
+                  min="1"
+                  placeholder="例：2020"
+                  class={`${fieldCls} w-32`}
+                />
+                <span class="text-ink">年</span>
+              </div>
+              <p class="text-xs text-inkMuted mt-2">※ 和暦を選んだ場合は、元号の年数を入力してください（例：令和2）。</p>
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+              <div>
+                <label for="nenki-month" class="block text-xs tracking-wider2 uppercase text-gold mb-2">
+                  月（任意）
+                </label>
+                <select id="nenki-month" class={fieldCls}>
+                  <option value="">―</option>
+                  {months.map((m) => <option value={m}>{m}</option>)}
+                </select>
+              </div>
+              <div>
+                <label for="nenki-day" class="block text-xs tracking-wider2 uppercase text-gold mb-2">
+                  日（任意）
+                </label>
+                <select id="nenki-day" class={fieldCls}>
+                  <option value="">―</option>
+                  {days.map((d) => <option value={d}>{d}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <p class="text-sm text-inkMuted leading-relaxed">
+              ※ 月日は分かる場合のみで構いません。年だけでも、年忌の年をご覧いただけます。
+            </p>
+
+            <div class="flex flex-wrap gap-3 pt-1">
+              <button type="submit" class="btn-primary">
+                <Icon name="lucide:calculator" class="w-4 h-4" aria-hidden="true" />
+                <span>年忌を調べる</span>
+              </button>
+              <button type="reset" class="btn-secondary">
+                <span>クリア</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </FadeIn>
+
+      <p id="nenki-error" class="mt-4 text-sm text-red-700 hidden" role="alert"></p>
+
+      <div id="nenki-result" class="mt-6 hidden">
+        <div class="rounded-2xl border border-line bg-paper p-6 sm:p-10">
+          <h2 id="nenki-result-title" class="font-serif text-xl text-ink mb-5"></h2>
+          <ul id="nenki-list" class="divide-y divide-line"></ul>
+
+          <div class="mt-6 rounded-xl bg-paperWarm/60 p-4 sm:p-5 text-sm text-inkSoft leading-relaxed">
+            年忌法要は、必ずこの年・この日にお勤めしなければならないものではありません。ご命日にこだわらず、ご家族・ご親族がお集まりになりやすい日に合わせてお勤めいただけます。「昨年お勤めできなかった三回忌を」といったご相談も承っております。上の年はひとつの目安として、どうぞお気軽に金剛寺までお声がけください。
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <FormButton label="この法要を申し込む" />
+            <LineButton />
+            <CallButton variant="secondary" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ nenkiList }}>
+    const form = document.getElementById('nenki-form');
+    const eraEl = document.getElementById('nenki-era');
+    const yearEl = document.getElementById('nenki-year');
+    const monthEl = document.getElementById('nenki-month');
+    const dayEl = document.getElementById('nenki-day');
+    const result = document.getElementById('nenki-result');
+    const titleEl = document.getElementById('nenki-result-title');
+    const listEl = document.getElementById('nenki-list');
+    const errorEl = document.getElementById('nenki-error');
+    const WEEK = ['日', '月', '火', '水', '木', '金', '土'];
+
+    function toSeireki(era, n) {
+      switch (era) {
+        case 'seireki': return n;
+        case 'reiwa': return 2018 + n;
+        case 'heisei': return 1988 + n;
+        case 'showa': return 1925 + n;
+        case 'taisho': return 1911 + n;
+        default: return NaN;
+      }
+    }
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+      result.classList.add('hidden');
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorEl.classList.add('hidden');
+
+      const n = parseInt(yearEl.value, 10);
+      if (!yearEl.value || isNaN(n) || n < 1) {
+        showError('亡くなられた年を入力してください。');
+        return;
+      }
+      const seireki = toSeireki(eraEl.value, n);
+      const thisYear = new Date().getFullYear();
+      if (isNaN(seireki) || seireki < 1900 || seireki > thisYear) {
+        showError('入力された年をご確認ください。');
+        return;
+      }
+
+      const month = monthEl.value ? parseInt(monthEl.value, 10) : null;
+      const day = dayEl.value ? parseInt(dayEl.value, 10) : null;
+
+      // 没年 + offset は昇順なので、最初に「今年以降」になる年が次に迎える年忌
+      let upcomingYear = null;
+      for (const item of nenkiList) {
+        const y = seireki + item.offset;
+        if (y >= thisYear) { upcomingYear = y; break; }
+      }
+
+      listEl.innerHTML = '';
+      for (const item of nenkiList) {
+        const y = seireki + item.offset;
+        let dateText;
+        if (month && day) {
+          const d = new Date(y, month - 1, day);
+          if (d.getMonth() === month - 1 && d.getDate() === day) {
+            dateText = `${y}年${month}月${day}日（${WEEK[d.getDay()]}）`;
+          } else {
+            dateText = `${y}年${month}月`;
+          }
+        } else if (month) {
+          dateText = `${y}年${month}月ごろ`;
+        } else {
+          dateText = `${y}年`;
+        }
+
+        const past = y < thisYear;
+        const isUpcoming = y === upcomingYear;
+
+        const li = document.createElement('li');
+        li.className = 'flex items-center justify-between gap-3 py-3 ' + (past ? 'text-inkMuted' : 'text-ink');
+
+        const left = document.createElement('span');
+        left.className = 'font-serif';
+        left.textContent = item.label;
+
+        const right = document.createElement('span');
+        right.className = 'flex items-center gap-2';
+        const dateSpan = document.createElement('span');
+        dateSpan.textContent = dateText;
+        right.appendChild(dateSpan);
+        if (isUpcoming) {
+          const badge = document.createElement('span');
+          badge.className = 'text-xs rounded-full bg-goldSoft text-ink px-2 py-0.5';
+          badge.textContent = '次の年忌';
+          right.appendChild(badge);
+        }
+
+        li.appendChild(left);
+        li.appendChild(right);
+        listEl.appendChild(li);
+      }
+
+      titleEl.textContent = `${seireki}年に亡くなられた方の年忌`;
+      result.classList.remove('hidden');
+      result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    form.addEventListener('reset', () => {
+      result.classList.add('hidden');
+      errorEl.classList.add('hidden');
+    });
+  </script>
+</BaseLayout>

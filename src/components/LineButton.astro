@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+
+interface Props {
+  variant?: 'primary' | 'secondary';
+  label?: string;
+  class?: string;
+}
+const { variant = 'secondary', label = 'LINEで友だち追加', class: className = '' } = Astro.props;
+const cls = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+---
+<a
+  href={site.lineUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[cls, className]}
+  aria-label="LINEで金剛寺を友だち追加する（新しいタブで開きます）"
+>
+  <Icon name="lucide:message-circle" class="w-4 h-4" aria-hidden="true" />
+  <span>{label}</span>
+</a>

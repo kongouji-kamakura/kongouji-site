@@ -4,13 +4,15 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import FadeIn from '@/components/FadeIn.astro';
 import CallButton from '@/components/CallButton.astro';
 import MapButton from '@/components/MapButton.astro';
+import FormButton from '@/components/FormButton.astro';
+import LineButton from '@/components/LineButton.astro';
 import BackgroundDecor from '@/components/BackgroundDecor.astro';
 import { Icon } from 'astro-icon/components';
 import { site } from '@/data/site';
 ---
 <BaseLayout
   title="お問い合わせ"
-  description={`${site.fullName}へのお問い合わせは、お電話にて承っております。`}
+  description={`${site.fullName}へのご法事・法要のお申し込み、ご相談は、受付フォーム・LINE・お電話にて承っております。`}
 >
   <section class="relative section pt-16 sm:pt-24">
     <BackgroundDecor variant="contact" />
@@ -21,12 +23,39 @@ import { site } from '@/data/site';
     <div class="max-w-2xl">
       <FadeIn>
         <p class="text-inkSoft leading-loose mb-8">
-          金剛寺では、お問い合わせフォームは設けておりません。<br />
-          お電話にて承っておりますので、お手数をおかけしますが下記までご連絡ください。
+          ご法事・法要のお申し込みやご相談は、下記の受付フォーム・LINE・お電話にて承っております。<br />
+          お手数をおかけしますが、ご都合のよい方法でお気軽にご連絡ください。
         </p>
       </FadeIn>
 
       <FadeIn delay={80}>
+        <div class="rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-10 mb-6">
+          <h2 class="font-serif text-xl text-ink mb-2 flex items-center gap-2">
+            <Icon name="lucide:clipboard-list" class="w-5 h-5 text-gold" aria-hidden="true" /> ご法事・法要のお申し込み
+          </h2>
+          <p class="text-inkSoft leading-relaxed mb-2">
+            ご法事・年忌法要のお申し込み・ご相談は、受付フォームより承っております。
+          </p>
+          <p class="text-sm text-inkMuted leading-relaxed mb-6">
+            ※ フォームの送信のみでは、ご予約は確定いたしません。内容を確認のうえ、金剛寺より折り返しご連絡し、日程等が確定となります。
+          </p>
+          <FormButton />
+        </div>
+      </FadeIn>
+
+      <FadeIn delay={120}>
+        <div class="rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-10 mb-6">
+          <h2 class="font-serif text-xl text-ink mb-2 flex items-center gap-2">
+            <Icon name="lucide:message-circle" class="w-5 h-5 text-gold" aria-hidden="true" /> LINEでご相談
+          </h2>
+          <p class="text-inkSoft leading-relaxed mb-6">
+            ご法事・法要のご相談やお問い合わせは、LINEのトークからもお送りいただけます。行事やお知らせの配信も行っております。
+          </p>
+          <LineButton />
+        </div>
+      </FadeIn>
+
+      <FadeIn delay={160}>
         <div class="rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-10">
           <dl class="space-y-6">
             <div>

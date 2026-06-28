@@ -6,6 +6,8 @@ import GuideCard from '@/components/GuideCard.astro';
 import FadeIn from '@/components/FadeIn.astro';
 import CallButton from '@/components/CallButton.astro';
 import MapButton from '@/components/MapButton.astro';
+import FormButton from '@/components/FormButton.astro';
+import LineButton from '@/components/LineButton.astro';
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import historyKongoujiCurrent from '@/assets/photos/history-kongouji-current.jpg';
@@ -28,7 +30,7 @@ const cards = [
   {
     href: `${base}/houji-sogi/`,
     title: 'ご法事・ご葬儀のご相談',
-    description: 'ご法事・ご葬儀につきましては、まずはお電話にてお気軽にご相談ください。',
+    description: 'ご法事・ご葬儀につきましては、受付フォーム・LINE・お電話にてご相談を承っております。',
     icon: 'lucide:hand-helping',
   },
   {
@@ -106,14 +108,16 @@ const cards = [
       <div class="rounded-3xl border border-line bg-paperWarm/40 px-6 py-12 sm:px-12 sm:py-16 text-center">
         <p class="text-xs tracking-wider2 uppercase text-gold mb-3">Contact</p>
         <h2 class="text-2xl sm:text-3xl font-serif text-ink mb-4">
-          ご相談は、まずお電話にて
+          ご相談・お申し込みについて
         </h2>
         <p class="text-inkSoft leading-relaxed mb-8 max-w-xl mx-auto">
-          ご法事・ご葬儀、合葬墓、お骨預かりなどのご相談は、Web上での予約は承っておりません。<br />
-          お電話にて直接お問い合わせいただけますと幸いです。
+          ご法事・法要のお申し込み・ご相談は、受付フォーム・LINE・お電話にて承っております。<br />
+          合葬墓・お骨預かりなどのご相談も、お電話・LINEにてお気軽にお寄せください。
         </p>
         <div class="flex flex-wrap items-center justify-center gap-3">
           <CallButton />
+          <FormButton variant="secondary" />
+          <LineButton />
           <MapButton />
         </div>
       </div>
