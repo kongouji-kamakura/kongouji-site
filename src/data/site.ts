@@ -53,7 +53,7 @@ export const site = {
       address: '神奈川県茅ヶ崎市下寺尾542番地',
     },
     konshi: {
-      eternal: 'ご一体 30万円',
+      eternal: '30万円',
       yearly: '一切不要',
     },
     temporaryStorage: {
@@ -99,6 +99,7 @@ export const nav: NavItem[] = [
   { label: '法話会', href: '/houwakai/' },
   { label: '年間行事', href: '/events/' },
   { label: 'ご法事・ご葬儀', href: '/houji-sogi/' },
+  { label: '年忌計算機', href: '/nenki/' },
   { label: '合葬墓', href: '/gassobo/' },
   { label: 'アクセス・駐車場', href: '/access/' },
   { label: 'お問い合わせ', href: '/contact/' },
