@@ -13,6 +13,8 @@
 // 経歴は本人公開情報の範囲を超えて盛らないこと。
 // ご講師の予定は確定ではないため、ページ上に「変更となる場合がございます」と明記している。
 import type { ImageMetadata } from 'astro';
+// 掲載許可をご本人よりいただいた写真
+import naritaShinjiroImg from '@/assets/lecturers/narita-shinjiro.jpg';
 
 export interface Lecturer {
   month: number;
@@ -22,6 +24,9 @@ export interface Lecturer {
   honorific: string;
   intro: string[];
   image?: ImageMetadata;
+  // その月に特設ページがある場合のリンク先（サイトのbaseを除いたパス）。
+  // 例）2026年10月法話会 → '/houwakai/2026-10/'
+  detailHref?: string;
 }
 
 export const lecturers: Lecturer[] = [
@@ -102,6 +107,20 @@ export const lecturers: Lecturer[] = [
       '埼玉県戸田市の正善寺ご住職として、都市部での聞法のご縁を大切にされている先生です。',
       '本願寺派布教使として各地でご法話をされ、日々の暮らしの中でいただく浄土真宗のみ教えをお聞かせくださいます。',
     ],
+  },
+  {
+    month: 10,
+    monthLabel: '10月',
+    temple: '善行寺',
+    name: '成田 真二郎',
+    honorific: '師',
+    intro: [
+      '東京仏教学院で「伝道（布教）」を担当され、築地本願寺の法要をはじめ、各地の法座に出講されている先生です。',
+      '日々の暮らしの中の出来事を通して、浄土真宗のみ教えを分かりやすくお話しくださいます。',
+    ],
+    image: naritaShinjiroImg,
+    // 2026年10月10日の法話会は特設ページをご用意しています（ハガキのQRコードの移動先）。
+    detailHref: '/houwakai/2026-10/',
   },
   {
     month: 11,

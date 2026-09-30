@@ -4,6 +4,8 @@ import FadeIn from '@/components/FadeIn.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import LecturerCard from './LecturerCard.astro';
 import { lecturers } from '@/data/lecturers';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <section class="section section-padding">
   <FadeIn>
@@ -47,6 +49,7 @@ import { lecturers } from '@/data/lecturers';
           honorific={l.honorific}
           intro={[...l.intro]}
           image={l.image}
+          detailHref={l.detailHref ? `${baseUrl}${l.detailHref}` : undefined}
         />
       </FadeIn>
     ))}

@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kongouji//Houwakai 2026-10//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:houwakai-2026-10-10@kongouji-kamakura.github.io
+DTSTAMP:20260921T000000Z
+DTSTART:20261010T043000Z
+DTEND:20261010T060000Z
+SUMMARY:金剛寺 法話会（ご講師 成田真二郎 師）
+LOCATION:浄土真宗本願寺派 大船山 金剛寺 本堂（神奈川
+ 県鎌倉市玉縄2-11-3）
+DESCRIPTION:13時30分より（受付は13時頃から）。お申し込
+ み・参加費は要りません。\nくわしくは https://kongouji-k
+ amakura.github.io/kongouji-site/houwakai/2026-10/
+URL:https://kongouji-kamakura.github.io/kongouji-site/houwakai/2026-10/
+END:VEVENT
+END:VCALENDAR

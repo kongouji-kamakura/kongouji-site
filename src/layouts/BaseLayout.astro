@@ -8,17 +8,23 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  // ページ独自の構造化データ（行事ページの Event など）。寺院の情報とあわせて出力する。
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
   title,
   description = site.description,
+  jsonLd,
   // TODO[image]: 公開前に og-image.svg を 1200x630 の og-image.png に差し替え（SNS互換性のため）
   ogImage = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/og-image.svg`,
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${site.fullName}` : site.fullName;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.siteUrl).toString();
+
+// SNSに共有されたときの画像は、絶対URLでないと読み込まれない（LINE・Facebook等は相対パスを解決しない）。
+const ogImageUrl = new URL(ogImage, Astro.site ?? site.siteUrl).toString();
 
 const ld = {
   '@context': 'https://schema.org',
@@ -51,11 +57,11 @@ const ld = {
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -65,6 +71,7 @@ const ld = {
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
     <a

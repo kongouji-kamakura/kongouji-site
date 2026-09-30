@@ -1,0 +1,486 @@
+---
+// 2026年10月10日 法話会の特設ページ。
+//
+// 位置づけ：
+// - ハガキのQRコードは、法話会一覧（/houwakai/）ではなく、このページに直接つながる。
+// - 一覧ページの10月のご講師カードからも、このページへ移動できる。
+//
+// このページだけの方針（読み手が50〜70代・スマホ中心のため）：
+// - 本文は 16px（sm以上で18px）を基本にする。サイト標準の14pxでは小さい。
+// - 英字のラベル（eyebrow）は置かない。読み手に意味が伝わらないため。
+// - 「はじめての方へ」と「ご質問」で同じことを繰り返さない。
+//
+// 構成について（2026-09-21）：
+// - 大見出し（SectionHeading）は絞る（現在4つ）。利用者の多くは見出しだけを拾って読むため、
+//   同じ強さの見出しが並ぶと、どれが本題でどれが補足か分からず、目次を読まされている感じになる。
+// - 章の中の区切りは h3（区切り線なし・余白小）に落とし、章と章のあいだだけ大きく空ける。
+// - 金色の小ラベルを並べすぎない。視線が止まる回数が増えるだけのため。
+//
+// 文面の心理設計（2026-09-21 決定。ハガキと共通）：
+// - 受け手の心情を寺の側から決めない。「ふと思い出したり」のような推測を書かない。
+// - 送付対象を死別で選んでいることを、本文で前面に出さない（見出しも行事の案内として立てる）。
+// - 「難しい話ではありません」と書かない。「法話＝難しい」という発想を寺から提示しないため。
+// - 参加する意味を寺の側から与えすぎない。事実と参加しやすさだけを示す。
+//
+// 文言の方針（金剛寺の確定方針）：
+// - 「亡き人」「亡き方」は使わず、「ご往生された方」「お浄土に先に往かれた方」を用いる。
+// - 「冥福を祈る」「成仏を願う」「追善供養」を前提とした表現は使わない。
+// - お布施には触れない（お供えくださる方がいらっしゃるため、「いただいておりません」とは書かない）。
+//
+// 講師掲載について：
+// - 成田真二郎師より、公開・公式情報をもとにした紹介文の作成・掲載は許可済み。
+// - 写真：src/assets/lecturers/narita-shinjiro.jpg（ご本人より受領・掲載許可済み）
+// - LINE等に転送されたときの画像（public/og-houwakai-2026-10.jpg）も同じお写真から作っている。
+// - 善行寺ホームページへのご案内も、ご本人の許可を得て掲載している。
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FadeIn from '@/components/FadeIn.astro';
+import CallButton from '@/components/CallButton.astro';
+import GuideCard from '@/components/GuideCard.astro';
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { site } from '@/data/site';
+import naritaImg from '@/assets/lecturers/narita-shinjiro.jpg';
+// ご案内カードの写真（いずれも既存ページで使っているもの）
+import historyThumb from '@/assets/photos/history-houwakai-start-bw.jpg';
+import houjiThumb from '@/assets/photos/houji-sogi-hero.jpg';
+import gassoboThumb from '@/assets/photos/gassobo-zenkei.jpg';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// 地図の埋め込み。APIキーの要らない出力（Googleマップの埋め込み用URL）を使う。
+const mapEmbedUrl =
+  `https://www.google.com/maps?q=${encodeURIComponent(`${site.address} ${site.fullName}`)}&output=embed`;
+
+// 検索結果で行事として扱われるようにするための構造化データ。
+// 掲載している確定情報だけを書く（推測で項目を足さない）。
+const eventLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: '金剛寺 法話会（2026年10月）',
+  startDate: '2026-10-10T13:30:00+09:00',
+  endDate: '2026-10-10T15:00:00+09:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  isAccessibleForFree: true,
+  description:
+    '浄土真宗のみ教えをお聞かせいただく法話会です。お申し込み・参加費は必要ありません。',
+  location: {
+    '@type': 'Place',
+    name: `${site.fullName} 本堂`,
+    address: {
+      '@type': 'PostalAddress',
+      postalCode: site.postal,
+      streetAddress: site.address,
+      addressCountry: 'JP',
+    },
+  },
+  performer: { '@type': 'Person', name: '成田 真二郎' },
+  organizer: { '@type': 'Organization', name: site.fullName, url: site.siteUrl, telephone: site.phone },
+  offers: {
+    '@type': 'Offer',
+    price: 0,
+    priceCurrency: 'JPY',
+    availability: 'https://schema.org/InStock',
+    url: `${site.siteUrl}houwakai/2026-10/`,
+    validFrom: '2026-09-01T00:00:00+09:00',
+  },
+};
+
+// 本文の基本サイズ（このページのみ、サイト標準より一段大きくする）
+const bodyText = 'text-base sm:text-lg leading-loose';
+const noteText = 'text-sm sm:text-base leading-relaxed';
+
+// はじめての方へ（参加をためらう理由は、ここに集約する）
+const firstTimerNotes = [
+  '仏教の知識がなくても大丈夫です',
+  'おひとりでお参りの方もいらっしゃいます',
+  '普段着でお越しください',
+  '手ぶらでお越しください（お念珠をお持ちの方はご持参ください）',
+  'お申し込みは必要ありません。当日そのままお越しください',
+  '本堂は椅子席です。正座の必要はありません',
+];
+
+// 当日の流れ
+const schedule = [
+  { time: '13:00 頃', label: '受付', note: 'これより前にお越しいただいても差し支えありません。' },
+  { time: '13:30', label: 'おつとめ（読経）', note: 'ご一緒にお勤めいたします。約30分です。' },
+  { time: '14:00 頃', label: 'ご法話', note: '成田真二郎師にお話しいただきます。約1時間です。' },
+  { time: '15:00 頃', label: '終了', note: '' },
+];
+
+// ご質問（「はじめての方へ」に書いていないことだけを置く）
+// お車のことは「アクセス」に一本化した。同じ文を2か所に置かない。
+const faqs = [
+  {
+    q: '途中から参ったり、途中で帰ったりしてもよいですか。',
+    a: 'ご都合に合わせてお参りいただけます。途中でのご入退出も、ご遠慮なくどうぞ。',
+  },
+  {
+    q: '家族や知人と、何人かで参りたいのですが。',
+    a: 'ご一緒にお越しください。5名以上でお越しになる場合は、お席をご用意いたしますので、事前にお電話でお知らせいただけると助かります。',
+  },
+  {
+    q: '参加費はかかりますか。',
+    a: '参加費は必要ありません。お気軽にお越しください。',
+  },
+];
+---
+<BaseLayout
+  title="2026年10月10日 法話会のご案内"
+  description="2026年10月10日（土）13時30分より、金剛寺にて法話会を行います。ご講師は善行寺住職 成田真二郎師。お申し込み・参加費は必要ありません。はじめての方、おひとりの方もどうぞお参りください。"
+  ogImage={`${baseUrl}/og-houwakai-2026-10.jpg`}
+  jsonLd={eventLd}
+>
+  <!-- 1章：ご案内 -->
+  <section class="section pt-14 sm:pt-20 pb-10 text-center">
+    <FadeIn>
+      <p class="text-sm sm:text-base text-gold mb-5">2026年10月</p>
+    </FadeIn>
+    <FadeIn delay={100}>
+      <h1 class="font-serif text-3xl sm:text-5xl text-ink leading-snug">
+        金剛寺 法話会の<wbr />ご案内
+      </h1>
+    </FadeIn>
+    <!-- 本文はここに置く。2段落だけなので見出しを立てない -->
+    <FadeIn delay={180}>
+      <div class={`mt-8 max-w-2xl mx-auto space-y-5 text-left sm:text-center text-inkSoft ${bodyText}`}>
+        <p>
+          金剛寺では、毎月第二土曜日に法話会を行っております。毎回、各地よりご講師をお招きし、浄土真宗のみ教えをお聞かせいただいております。
+        </p>
+        <p>
+          10月は、成田真二郎師にお越しいただきます。阿弥陀さまと出会った人生は、むなしく終わっていく人生ではない、というお話です。
+        </p>
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- 開催情報（1章の続きなので、上との間は詰める） -->
+  <section class="section pb-20 sm:pb-32">
+    <FadeIn>
+      <div class="max-w-2xl mx-auto rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-10">
+        {/*
+          スマホではラベルを上に積む。横並びにすると本文の幅が200pxほどしか残らず、
+          「（土）」のように数文字だけが次の行に落ちて読みにくくなるため。
+        */}
+        <dl class="space-y-5 text-base sm:text-lg">
+          <div class="sm:flex sm:gap-4">
+            <dt class="text-sm sm:text-base text-gold mb-1 sm:mb-0 sm:shrink-0 sm:w-20 sm:pt-1">日時</dt>
+            <dd class="text-ink">
+              <p class="font-serif text-xl sm:text-2xl leading-snug whitespace-nowrap">2026年10月10日（土）</p>
+              <p class="mt-1">13時30分より<span class="whitespace-nowrap">（受付は13時頃から）</span></p>
+              <p class={`text-inkMuted ${noteText}`}>15時頃終了の予定です</p>
+            </dd>
+          </div>
+          <div class="divider-soft" />
+          <div class="sm:flex sm:gap-4">
+            <dt class="text-sm sm:text-base text-gold mb-1 sm:mb-0 sm:shrink-0 sm:w-20 sm:pt-1">会場</dt>
+            <dd class="text-ink">
+              <p>{site.fullName}<span class="whitespace-nowrap"> 本堂</span></p>
+              <p class={`text-inkSoft ${noteText} mt-1`}>〒{site.postal} {site.address}</p>
+            </dd>
+          </div>
+          <div class="divider-soft" />
+          <div class="sm:flex sm:gap-4">
+            <dt class="text-sm sm:text-base text-gold mb-1 sm:mb-0 sm:shrink-0 sm:w-20 sm:pt-1">ご講師</dt>
+            <dd class="text-ink">
+              <p><span class="whitespace-nowrap">善行寺住職</span>　<span class="whitespace-nowrap">成田 真二郎 師</span></p>
+            </dd>
+          </div>
+          <div class="divider-soft" />
+          <div class="sm:flex sm:gap-4">
+            <dt class="text-sm sm:text-base text-gold mb-1 sm:mb-0 sm:shrink-0 sm:w-20 sm:pt-1">参加</dt>
+            <dd class="text-ink">
+              <p>お申し込み・参加費は<span class="whitespace-nowrap">必要ありません。</span></p>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="divider-soft my-6" />
+
+        <!-- カレンダーに入れておきたい方向け。ハガキを見てすぐ予定に入れられるようにする -->
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href={`${baseUrl}/houwakai-2026-10.ics`}
+            download="金剛寺法話会-2026-10-10.ics"
+            class="btn-secondary"
+            aria-label="法話会の予定をカレンダーに追加する（カレンダー用ファイルを保存します）"
+          >
+            <Icon name="lucide:calendar-plus" class="w-4 h-4" aria-hidden="true" />
+            カレンダーに追加
+          </a>
+        </div>
+
+        <!-- やむを得ず中止・変更になることがあるため、あらかじめ添えておく -->
+        <p class={`mt-5 text-inkMuted ${noteText}`}>
+          ※ やむを得ない事情により、日程や内容が変更または中止となる場合がございます。
+        </p>
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- 2章：はじめての方へ -->
+  <section class="section pb-20 sm:pb-32">
+    <FadeIn>
+      <SectionHeading title="はじめての方へ" align="center" />
+    </FadeIn>
+    <FadeIn delay={80}>
+      {/* 1項目ずつ箱に入れると同じ枠が縦に並びすぎるため、枠は使わず行として並べる */}
+      <ul class="max-w-xl mx-auto space-y-4">
+        {firstTimerNotes.map((item) => (
+          <li class={`flex items-start gap-3 text-inkSoft ${bodyText}`}>
+            <Icon name="lucide:check" class="w-5 h-5 text-gold shrink-0 mt-2" aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </FadeIn>
+
+    <!-- 章の中の区切り。大見出しにはしない -->
+    <FadeIn>
+      <h3 class="font-serif text-xl sm:text-2xl text-ink text-center mt-14 mb-6">
+        よくあるご質問
+      </h3>
+    </FadeIn>
+    {/* こちらも箱にせず、区切り線だけで分ける */}
+    <div class="max-w-xl mx-auto">
+      {faqs.map((faq, i) => (
+        <FadeIn>
+          <div class:list={['py-6', i > 0 && 'border-t border-line']}>
+            <p class="font-serif text-lg sm:text-xl text-ink leading-snug">{faq.q}</p>
+            <p class={`mt-2.5 text-inkSoft ${bodyText}`}>{faq.a}</p>
+          </div>
+        </FadeIn>
+      ))}
+    </div>
+  </section>
+
+  <!-- 3章：当日の流れ -->
+  <section class="section pb-20 sm:pb-32">
+    <FadeIn>
+      <SectionHeading title="当日の流れ" align="center" />
+    </FadeIn>
+
+    <FadeIn delay={80}>
+      <div class="max-w-2xl mx-auto relative">
+        <div class="absolute left-3 top-3 bottom-3 w-px bg-line" aria-hidden="true" />
+        {schedule.map((item) => (
+          <div class="relative pl-10 sm:pl-12 mb-8 last:mb-0">
+            <span
+              class="absolute left-1.5 top-2.5 w-3 h-3 rounded-full bg-fuji border-2 border-paper shadow-sm"
+              aria-hidden="true"
+            />
+            <p class="text-sm sm:text-base text-gold">{item.time}</p>
+            <p class="font-serif text-xl sm:text-2xl text-ink mt-1 leading-snug">{item.label}</p>
+            {item.note && (
+              <p class={`text-inkSoft ${noteText} mt-2`}>{item.note}</p>
+            )}
+          </div>
+        ))}
+        <p class={`pl-10 sm:pl-12 text-inkMuted ${noteText}`}>
+          全体で1時間30分ほどです。
+        </p>
+      </div>
+    </FadeIn>
+
+  </section>
+
+  <!-- 4章：アクセス（当日の流れの一部ではないので、章として分ける） -->
+  <section class="section pb-20 sm:pb-32">
+    <FadeIn>
+      <SectionHeading title="アクセス" align="center" />
+    </FadeIn>
+    <FadeIn delay={80}>
+      <div class="max-w-2xl mx-auto rounded-2xl border border-line bg-paperWarm/40 p-6 sm:p-9 space-y-5">
+        <!-- 地図の埋め込み（外部読み込みのため、利用者の承認を得て設置：2026-09-21） -->
+        <div class="rounded-xl overflow-hidden border border-line bg-paper">
+          <iframe
+            src={mapEmbedUrl}
+            title="金剛寺の地図"
+            width="100%"
+            height="260"
+            style="border:0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          />
+        </div>
+
+        <!-- 金色の小ラベルを並べると視線が止まりすぎるため、アイコンにまとめる -->
+        <dl class={`space-y-4 text-inkSoft ${bodyText}`}>
+          <div class="flex gap-3">
+            <dt class="shrink-0 pt-1.5"><span class="sr-only">ご住所</span>
+              <Icon name="lucide:map-pin" class="w-5 h-5 text-gold" aria-hidden="true" />
+            </dt>
+            <dd class="text-ink">〒{site.postal} {site.address}</dd>
+          </div>
+          <div class="flex gap-3">
+            <dt class="shrink-0 pt-1.5"><span class="sr-only">徒歩</span>
+              <Icon name="lucide:footprints" class="w-5 h-5 text-gold" aria-hidden="true" />
+            </dt>
+            <dd>{site.access.walkFromOfuna}</dd>
+          </div>
+          <div class="flex gap-3">
+            <dt class="shrink-0 pt-1.5"><span class="sr-only">バス</span>
+              <Icon name="lucide:bus" class="w-5 h-5 text-gold" aria-hidden="true" />
+            </dt>
+            <dd>
+              {site.access.busFromOfuna}
+              <span class={`block text-inkMuted ${noteText} mt-1`}>
+                ※ 行き先表示が「船35」のバスにご乗車ください。
+              </span>
+              <!-- 初めて乗る方は「3番のりば」を探すところでつまずくため、乗り口・降り口を地図で示す -->
+              <span class="mt-3 flex flex-wrap gap-2">
+                <a
+                  href={site.access.busBoardingMapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-secondary"
+                  aria-label="バスの乗り口（大船駅西口 3番のりば）をGoogleマップで見る（新しいタブで開きます）"
+                >
+                  <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" />
+                  <span>乗り口（大船駅西口）</span>
+                </a>
+                <a
+                  href={site.access.busAlightingMapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-secondary"
+                  aria-label="バスの降り口（栄光学園前バス停）をGoogleマップで見る（新しいタブで開きます）"
+                >
+                  <Icon name="lucide:map-pin" class="w-4 h-4" aria-hidden="true" />
+                  <span>降り口（栄光学園前）</span>
+                </a>
+              </span>
+            </dd>
+          </div>
+          <div class="flex gap-3">
+            <dt class="shrink-0 pt-1.5"><span class="sr-only">お車</span>
+              <Icon name="lucide:car" class="w-5 h-5 text-gold" aria-hidden="true" />
+            </dt>
+            <dd>お車でもお越しいただけます。駐車場所は当日ご案内いたします。</dd>
+          </div>
+        </dl>
+
+        <div class="pt-1 flex flex-wrap gap-3">
+          <a href={`${baseUrl}/access/`} class="btn-secondary">
+            <Icon name="lucide:route" class="w-4 h-4" aria-hidden="true" />
+            詳しいアクセス
+          </a>
+          <CallButton variant="secondary" label={`お問い合わせ ${site.phone}`} />
+        </div>
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- 5章：ご参考までに（判断に要る情報ではなく、興味を持った方が読むもの） -->
+  <section class="section pb-20 sm:pb-28">
+    <FadeIn>
+      <SectionHeading title="ご参考までに" align="center" />
+    </FadeIn>
+
+    <FadeIn delay={80}>
+      <div class="max-w-3xl mx-auto rounded-2xl border border-line bg-paper overflow-hidden sm:flex">
+        <div class="sm:w-64 shrink-0 aspect-[4/5] sm:aspect-auto bg-paperWarm">
+          <Image
+            src={naritaImg}
+            alt="善行寺住職 成田真二郎 師"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="p-6 sm:p-8 flex-1">
+          <p class="text-sm sm:text-base text-gold mb-2">今回お話しいただく先生</p>
+          <h3 class="font-serif text-2xl sm:text-3xl text-ink leading-snug">
+            成田 真二郎<span class="text-base text-inkSoft ml-2">師</span>
+          </h3>
+          <div class="divider-soft my-5" />
+          <div class={`text-inkSoft ${bodyText} space-y-4`}>
+            <p>
+              浄土真宗本願寺派の僧侶として、各地でご法話をされている先生です。
+            </p>
+            <p>
+              東京仏教学院では「伝道（布教）」を担当され、築地本願寺の法要をはじめ、各地の法座にも出講されています。
+            </p>
+          </div>
+
+          <!-- 先生のご紹介のあとに、ご自坊のご紹介を置く（順序は利用者の指示）。「ご自坊」は寺院内の言い方で一般には通じにくいため、見出しは「善行寺について」とする。 -->
+          <div class="divider-soft my-5" />
+          <p class="text-sm sm:text-base text-gold mb-2">善行寺について</p>
+          <div class={`text-inkSoft ${bodyText} space-y-4`}>
+            <p>
+              善行寺は、横浜市港南区にある浄土真宗本願寺派のお寺です。昭和58年の建立で、成田師は平成21年に先代からご住職を継がれました。
+            </p>
+            <p>
+              書道教室やヨガ教室、キッズサンガなども開かれ、子どもから大人まで集えるお寺を目指して活動されています。
+            </p>
+          </div>
+          <a
+            href="https://www.zengyouji.info/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary mt-5"
+            aria-label="善行寺の公式サイトを見る（新しいタブで開きます）"
+          >
+            <Icon name="lucide:external-link" class="w-4 h-4" aria-hidden="true" />
+            善行寺のホームページ
+          </a>
+        </div>
+      </div>
+    </FadeIn>
+
+    <FadeIn delay={80}>
+      <div class="max-w-2xl mx-auto mt-8 rounded-2xl border border-line/80 bg-paperWarm/30 px-6 py-8 sm:px-10 sm:py-10 text-center">
+        <p class="text-sm sm:text-base text-gold mb-5">当日の讃題</p>
+        <p class="font-serif text-lg sm:text-2xl text-ink leading-loose">
+          本願力にあひぬれば<br />
+          むなしくすぐるひとぞなき<br />
+          功徳の宝海みちみちて<br />
+          煩悩の濁水へだてなし
+        </p>
+        <p class={`mt-6 text-inkMuted ${noteText}`}>
+          親鸞聖人『高僧和讃』「天親讃」の一首です。<br class="hidden sm:block" />
+          当日は、このお言葉をいただきながらお話しくださいます。
+        </p>
+      </div>
+    </FadeIn>
+  </section>
+
+  <!-- 金剛寺のご案内（回遊導線。大見出しは立てない） -->
+  <section class="section pb-16 sm:pb-24">
+    <FadeIn>
+      <p class="text-center text-sm sm:text-base text-gold mb-8">金剛寺のご案内</p>
+    </FadeIn>
+    <FadeIn delay={80}>
+      <div class="grid gap-5 sm:grid-cols-3">
+        <GuideCard
+          href={`${baseUrl}/history/`}
+          icon="lucide:scroll"
+          title="金剛寺の歩み"
+          description="大船の地に金剛寺が建つまでの歩みを、写真とともにご紹介しています。"
+          image={historyThumb}
+          imageAlt="昭和45年8月、はじまりの法話会のようす"
+        />
+        <GuideCard
+          href={`${baseUrl}/houji-sogi/`}
+          icon="lucide:flower"
+          title="ご法事・ご葬儀"
+          description="年回法要・ご葬儀のご相談を承っております。お電話のほか、受付フォームやLINEからもご相談いただけます。"
+          image={houjiThumb}
+          imageAlt="お荘厳をととのえた、ご法事の会場"
+          imagePosition="center 38%"
+        />
+        <GuideCard
+          href={`${baseUrl}/gassobo/`}
+          icon="lucide:flower-2"
+          title="金剛寺 合葬墓"
+          description="金剛寺の合葬墓は、湘南公園墓地・茅ヶ崎霊園内にございます。"
+          image={gassoboThumb}
+          imageAlt="富士山を望む、金剛寺 合葬墓"
+          imagePosition="center 45%"
+        />
+      </div>
+    </FadeIn>
+  </section>
+</BaseLayout>
